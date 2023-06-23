@@ -1,6 +1,7 @@
 package org.example.Items;
 
 public class Item {
+    protected boolean exist = true;
     protected int xCoordinate;
     protected int yCoordinate;
 
@@ -9,6 +10,14 @@ public class Item {
         this.yCoordinate = yCoordinate;
     }
 
+
+    public boolean exist() {
+        return exist;
+    }
+
+    public void setExist(boolean exist) {
+        this.exist = exist;
+    }
 
     public int getXCoordinate() {
         return xCoordinate;
