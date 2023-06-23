@@ -36,7 +36,6 @@ public class Boss extends Item implements Movable, Shootable {
     @Override
     public void move(int xCoordinate, int yCoordinate) {
         // does something
-        show();
     }
 
     public void loseHealth(double damage) {

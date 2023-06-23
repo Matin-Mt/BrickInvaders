@@ -3,9 +3,11 @@ package org.example.Items;
 import org.example.Interfaces.Movable;
 
 public class Block extends Item implements Movable {
-    private boolean exist = true;
     private double Health = 2;
     private int EXP = 1;
+
+    public static int blockWidth = 20;
+    public static int blockLength = 60;
 
     public Block(int xCoordinate, int yCoordinate) {
         super(xCoordinate, yCoordinate);
@@ -13,14 +15,15 @@ public class Block extends Item implements Movable {
     }
 
     private void healthChecking() {
-        while (exist){
-            Thread thread = new Thread(() -> {
+        Thread thread = new Thread(() -> {
+            while (true) {
                 if (Health <= 0) {
                     setExist(false);
                     move(xCoordinate, yCoordinate);
                 }
-            });
-        }
+            }
+        });
+        thread.start();
     }
 
     @Override
@@ -31,7 +34,6 @@ public class Block extends Item implements Movable {
     @Override
     public void move(int xCoordinate, int yCoordinate) {
         // does something
-        show();
     }
 
     public void loseHealth(double damage) {
@@ -39,14 +41,6 @@ public class Block extends Item implements Movable {
     }
 
     // getter & setter
-
-    public boolean exist() {
-        return exist;
-    }
-
-    public void setExist(boolean exist) {
-        this.exist = exist;
-    }
 
     public double getHealth() {
         return Health;
