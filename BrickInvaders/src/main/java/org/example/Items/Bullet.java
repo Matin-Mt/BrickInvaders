@@ -33,7 +33,7 @@ public class Bullet extends Item implements Movable {
     }
 
     @Override
-    public void move(double xCoordinate, double yCoordinate) {
+    public void move(int xCoordinate, int yCoordinate) {
         // does something
         show();
     }
