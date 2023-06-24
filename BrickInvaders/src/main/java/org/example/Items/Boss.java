@@ -4,13 +4,13 @@ import org.example.Interfaces.Movable;
 import org.example.Interfaces.Shootable;
 
 public class Boss extends Item implements Movable, Shootable {
-    private double Health = 25;
+    private double Health = 50;
     private int EXP = 15;
 
-    public Boss(int xCoordinate, int yCoordinate) {
+    private double ySpeed = 0.6;
+
+    public Boss(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
-        super.xCoordinate = xCoordinate;
-        super.yCoordinate = yCoordinate;
         move(xCoordinate, yCoordinate);
         shoot();
     }
@@ -34,7 +34,7 @@ public class Boss extends Item implements Movable, Shootable {
     }
 
     @Override
-    public void move(int xCoordinate, int yCoordinate) {
+    public void move(double xCoordinate, double yCoordinate) {
         // does something
     }
 
@@ -56,4 +56,7 @@ public class Boss extends Item implements Movable, Shootable {
         this.EXP = EXP;
     }
 
+    public double getYSpeed() {
+        return ySpeed;
+    }
 }

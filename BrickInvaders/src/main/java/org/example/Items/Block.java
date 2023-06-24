@@ -9,7 +9,7 @@ public class Block extends Item implements Movable {
     public static int blockWidth = 20;
     public static int blockLength = 60;
 
-    public Block(int xCoordinate, int yCoordinate) {
+    public Block(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
         healthChecking();
     }
@@ -32,7 +32,7 @@ public class Block extends Item implements Movable {
     }
 
     @Override
-    public void move(int xCoordinate, int yCoordinate) {
+    public void move(double xCoordinate, double yCoordinate) {
         // does something
     }
 

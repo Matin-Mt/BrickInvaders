@@ -2,10 +2,10 @@ package org.example.Items;
 
 public class Item {
     protected boolean exist = true;
-    protected int xCoordinate;
-    protected int yCoordinate;
+    protected double xCoordinate;
+    protected double yCoordinate;
 
-    public Item(int xCoordinate, int yCoordinate) {
+    public Item(double xCoordinate, double yCoordinate) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
     }
@@ -19,7 +19,7 @@ public class Item {
         this.exist = exist;
     }
 
-    public int getXCoordinate() {
+    public double getXCoordinate() {
         return xCoordinate;
     }
 
@@ -27,7 +27,7 @@ public class Item {
         this.xCoordinate = xCoordinate;
     }
 
-    public int getYCoordinate() {
+    public double getYCoordinate() {
         return yCoordinate;
     }
 

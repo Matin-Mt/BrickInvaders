@@ -45,7 +45,7 @@ public class Database {
     }
 
     public void addRecord(int score) {
-        String query = "INSERT INTO `brickinvaders`.`records` (score, date) VALUES(?)";
+        String query = "INSERT INTO `brickinvaders`.`records` (score, date) VALUES(?,?)";
 
         PreparedStatement statement;
         try {

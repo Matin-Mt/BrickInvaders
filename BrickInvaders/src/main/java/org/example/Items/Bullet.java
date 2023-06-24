@@ -3,10 +3,10 @@ package org.example.Items;
 import org.example.Interfaces.Movable;
 
 public class Bullet extends Item implements Movable {
-    private final int ySpeed = -3;
+    private final double ySpeed = -3;
     private static double power;
 
-    public Bullet(int xCoordinate, int yCoordinate, double power) {
+    public Bullet(double xCoordinate, double yCoordinate, double power) {
         super(xCoordinate, yCoordinate);
         Bullet.power = power;
         move(xCoordinate, yCoordinate);
@@ -18,11 +18,11 @@ public class Bullet extends Item implements Movable {
     }
 
     @Override
-    public void move(int xCoordinate, int yCoordinate) {
+    public void move(double xCoordinate, double yCoordinate) {
         // does something
     }
 
-    public int getYSpeed() {
+    public double getYSpeed() {
         return ySpeed;
     }
 
