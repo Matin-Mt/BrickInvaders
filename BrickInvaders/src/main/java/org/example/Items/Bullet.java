@@ -15,13 +15,13 @@ public class Bullet extends Item implements Movable {
 
     @Override
     public void show() {
-        Main.applet.circle(Main.applet.mouseX,30,1);
+        Main.applet.circle(200,600,15);
 
     }
 
     @Override
     public void move() {
-        // does something
+        setYCoordinate(getYCoordinate()-10);
 
     }
 

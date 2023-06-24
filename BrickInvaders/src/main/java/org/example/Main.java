@@ -27,11 +27,15 @@ public class Main extends PApplet {
     public void settings() {
         size(windowWidth, windowLength);
         smooth(55);
+
+
     }
 
     @Override
     public void draw() {
         background(75, 191, 199);
+
+
 
 
     }
