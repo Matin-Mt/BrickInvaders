@@ -69,4 +69,11 @@ public class Block extends Item implements Movable {
         this.EXP = EXP;
     }
 
+    public static int getSpeedY() {
+        return speedY;
+    }
+
+    public static void setSpeedY(int speedY) {
+        Block.speedY = speedY;
+    }
 }
