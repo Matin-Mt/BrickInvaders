@@ -14,7 +14,7 @@ public class Shooter extends Item implements Movable, Shootable {
     private double shotSpeed = -1;
     private double shotPower = 1;
 
-    public Shooter(int xCoordinate, int yCoordinate) {
+    public Shooter(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
         shoot();
     }
@@ -24,12 +24,6 @@ public class Shooter extends Item implements Movable, Shootable {
         Thread thread = new Thread(() -> {
             // does something
         });
-        try {
-            thread.wait();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -38,7 +32,7 @@ public class Shooter extends Item implements Movable, Shootable {
     }
 
     @Override
-    public void move(int xCoordinate, int yCoordinate) {
+    public void move(double xCoordinate, double yCoordinate) {
         // does something
     }
 
