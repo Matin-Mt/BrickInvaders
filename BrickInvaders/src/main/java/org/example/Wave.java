@@ -63,27 +63,47 @@ public class Wave {
     }
 
     private void waveExist() {
-        if (waveLevel % 5 != 0) {
-            if (waveBlocks != null) {
-                for (var b : waveBlocks) {
-                    if (b.exist() && b.getXCoordinate() >= Main.windowLength) {
+        Thread thread = new Thread(() -> {
+            while (true) {
+
+                if (waveLevel % 5 != 0) {
+                    if (waveBlocks != null) {
                         exist = false;
+
+                        for (var b : waveBlocks) {
+                            if (b.exist() && b.getYCoordinate() < Main.windowLength) {
+                                exist = true;
+                            }
+                        }
+
+                        if (!exist) {
+                            try {
+                                Thread.sleep(10000);
+                                levelWave();
+                                break;
+
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                } else if (boss != null) {
+                    if (!boss.exist() || boss.getYCoordinate() - (boss.getBossLength() / 2) >= Main.windowLength) {
+                        exist = false;
+                        try {
+                            Thread.sleep(10000);
+                            levelWave();
+                            break;
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-                if (exist)
-                    waveExist();
             }
-            try {
-                waitWave();
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        } else if (boss != null && boss.exist()) {
-            waveExist();
-
-        }
-        levelWave();
+        });
+        thread.start();
     }
 
     private void waitWave() throws InterruptedException {

@@ -28,7 +28,7 @@ public class Boss extends Item implements Movable {
                 if (Health <= 0)
                     setExist(false);
 
-                if (yCoordinate >= Main.windowLength)
+                if (yCoordinate >= Main.windowLength + (bossLength / 2))
                     setExist(false);
             }
         });
@@ -50,7 +50,7 @@ public class Boss extends Item implements Movable {
     @Override
     public void move() {
         Thread thread = new Thread(() -> {
-            while (exist() && getYCoordinate() < Main.windowLength) {
+            while (exist() && getYCoordinate() - (bossLength / 2) < Main.windowLength) {
                 setXCoordinate(getXCoordinate() + xSpeed);
                 setYCoordinate(getYCoordinate() + ySpeed);
 
@@ -97,5 +97,13 @@ public class Boss extends Item implements Movable {
 
     public void setXSpeed(double xSpeed) {
         this.xSpeed = xSpeed;
+    }
+
+    public double getBossWidth() {
+        return bossWidth;
+    }
+
+    public double getBossLength() {
+        return bossLength;
     }
 }

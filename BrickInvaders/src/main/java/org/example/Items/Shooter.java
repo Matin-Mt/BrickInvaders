@@ -47,6 +47,14 @@ public class Shooter extends Item implements Movable, Shootable {
         HP++;
     }
 
+    public void addEXP(int EXP) {
+        current_EXP += EXP;
+        if (current_EXP >= Max_EXP) {
+            setCurrent_EXP(current_EXP - Max_EXP);
+            addLevel();
+        }
+    }
+
     private void addMax_EXP() {
         Max_EXP = (int) (Max_EXP * 1.5);
     }

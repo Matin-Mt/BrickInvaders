@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.Items.Boss;
 import processing.core.PApplet;
 
 public class Main extends PApplet {
@@ -13,11 +12,9 @@ public class Main extends PApplet {
         PApplet.main("org.example.Main");
     }
 
-    Boss boss;
     @Override
     public void setup() {
         applet = this;
-        boss = new Boss(windowWidth / 2f, -50);
     }
 
     @Override
@@ -29,6 +26,5 @@ public class Main extends PApplet {
     @Override
     public void draw() {
         background(75, 191, 199);
-        boss.show();
     }
 }
