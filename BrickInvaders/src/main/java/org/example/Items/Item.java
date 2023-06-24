@@ -23,7 +23,7 @@ public class Item {
         return xCoordinate;
     }
 
-    public void setXCoordinate(int xCoordinate) {
+    public void setXCoordinate(double xCoordinate) {
         this.xCoordinate = xCoordinate;
     }
 

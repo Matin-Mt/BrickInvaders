@@ -31,9 +31,8 @@ public class Block extends Item implements Movable {
 
 
 
-    public void show(int x , int y) {
-
-
+    public void show() {
+        Main.applet.rect((float) getXCoordinate(),(float) getYCoordinate(),blockLength,blockWidth);
     }
 
     @Override
