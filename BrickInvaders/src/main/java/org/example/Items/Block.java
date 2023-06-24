@@ -30,19 +30,9 @@ public class Block extends Item implements Movable {
     }
 
 
-    public static void makeBlock(){
-        for (int i = 0; i <3 ; i++) {
-            Main.blocks.add(new Block(20,speedY));
-            Main.blocks.add(new Block(80,speedY));
-            Main.blocks.add(new Block(140,speedY));
-            Main.blocks.add(new Block(200,speedY));
-            Main.blocks.add(new Block(260,speedY));
-            Main.blocks.add(new Block(320,speedY));
-            speedY  += 30;
 
-        }
-    }
-    public void show() {
+    public void show(int x , int y) {
+
 
     }
 
