@@ -31,7 +31,7 @@ public class Item {
         return yCoordinate;
     }
 
-    public void setYCoordinate(int yCoordinate) {
+    public void setYCoordinate(double yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
 

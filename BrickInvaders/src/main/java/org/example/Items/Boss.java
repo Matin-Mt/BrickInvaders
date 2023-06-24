@@ -11,7 +11,7 @@ public class Boss extends Item implements Movable, Shootable {
 
     public Boss(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
-        move(xCoordinate, yCoordinate);
+        move();
         shoot();
     }
 
@@ -34,7 +34,7 @@ public class Boss extends Item implements Movable, Shootable {
     }
 
     @Override
-    public void move(double xCoordinate, double yCoordinate) {
+    public void move() {
         // does something
     }
 

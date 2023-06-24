@@ -22,7 +22,7 @@ public class Block extends Item implements Movable {
             while (true) {
                 if (Health <= 0) {
                     setExist(false);
-                    move(xCoordinate, yCoordinate);
+                    move();
                 }
             }
         });
@@ -47,8 +47,11 @@ public class Block extends Item implements Movable {
     }
 
     @Override
-    public void move(double xCoordinate, double yCoordinate) {
-        // does something
+    public void move() {
+        for (Block c :
+             Main.blocks) {
+            c.setYCoordinate(c.getYCoordinate()+2.0);
+        }
     }
 
     public void loseHealth(double damage) {
@@ -76,4 +79,5 @@ public class Block extends Item implements Movable {
     public static void setSpeedY(int speedY) {
         Block.speedY = speedY;
     }
+
 }
