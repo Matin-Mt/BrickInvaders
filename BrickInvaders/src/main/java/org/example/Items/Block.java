@@ -19,7 +19,7 @@ public class Block extends Item implements Movable {
             while (true) {
                 if (Health <= 0) {
                     setExist(false);
-                    move(xCoordinate, yCoordinate);
+                    move();
                 }
             }
         });
@@ -32,7 +32,7 @@ public class Block extends Item implements Movable {
     }
 
     @Override
-    public void move(double xCoordinate, double yCoordinate) {
+    public void move() {
         // does something
     }
 

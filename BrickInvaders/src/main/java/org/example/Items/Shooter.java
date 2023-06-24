@@ -32,7 +32,7 @@ public class Shooter extends Item implements Movable, Shootable {
     }
 
     @Override
-    public void move(double xCoordinate, double yCoordinate) {
+    public void move() {
         // does something
     }
 
