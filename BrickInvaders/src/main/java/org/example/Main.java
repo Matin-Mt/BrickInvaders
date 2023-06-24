@@ -1,12 +1,17 @@
 package org.example;
 
+import org.example.Items.Block;
 import processing.core.PApplet;
+
+import java.util.ArrayList;
 
 public class Main extends PApplet {
     public static PApplet applet;
 
     public static int windowWidth = 400;
     public static int windowLength = 700;
+
+    public static ArrayList<Block> blocks = new ArrayList<>();
 
     public static void main(String[] args) {
         PApplet.main("org.example.Main");
@@ -26,6 +31,7 @@ public class Main extends PApplet {
     @Override
     public void draw() {
         background(75, 191, 199);
+
 
     }
 }

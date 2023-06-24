@@ -1,16 +1,19 @@
 package org.example.Items;
 
 import org.example.Interfaces.Movable;
+import org.example.Main;
 
 public class Block extends Item implements Movable {
     private double Health = 2;
     private int EXP = 1;
+    public static int speedY = 30;
 
-    public static int blockWidth = 20;
-    public static int blockLength = 60;
+    public static int blockWidth = 15;
+    public static int blockLength = 50;
 
     public Block(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
+
         healthChecking();
     }
 
@@ -26,7 +29,19 @@ public class Block extends Item implements Movable {
         thread.start();
     }
 
-    @Override
+
+    public static void makeBlock(){
+        for (int i = 0; i <3 ; i++) {
+            Main.blocks.add(new Block(20,speedY));
+            Main.blocks.add(new Block(80,speedY));
+            Main.blocks.add(new Block(140,speedY));
+            Main.blocks.add(new Block(200,speedY));
+            Main.blocks.add(new Block(260,speedY));
+            Main.blocks.add(new Block(320,speedY));
+            speedY  += 30;
+
+        }
+    }
     public void show() {
 
     }
