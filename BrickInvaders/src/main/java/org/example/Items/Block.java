@@ -31,16 +31,14 @@ public class Block extends Item implements Movable {
 
 
 
+
     public void show() {
         Main.applet.rect((float) getXCoordinate(),(float) getYCoordinate(),blockLength,blockWidth);
     }
 
     @Override
     public void move() {
-        for (Block c :
-             Main.blocks) {
-            c.setYCoordinate(c.getYCoordinate()+2.0);
-        }
+        setYCoordinate(getYCoordinate()+1);
     }
 
     public void loseHealth(double damage) {

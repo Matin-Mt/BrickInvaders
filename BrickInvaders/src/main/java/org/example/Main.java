@@ -26,6 +26,7 @@ public class Main extends PApplet {
     public void settings() {
         size(windowWidth, windowLength);
         smooth(55);
+
     }
 
     @Override
