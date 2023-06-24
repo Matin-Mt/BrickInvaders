@@ -105,10 +105,4 @@ public class Wave {
         });
         thread.start();
     }
-
-    private void waitWave() throws InterruptedException {
-        // show texts
-
-        Thread.sleep(5000);
-    }
 }

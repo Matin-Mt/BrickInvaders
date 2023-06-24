@@ -4,9 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Database {
-    private final String url = "";
-    private final String user = "";
-    private final String password = "";
+    private final String url = "jdbc:mysql://localhost:3306/brickinvaders";
+    private final String user = "root";
+    private final String password = "Mat!nMt_P0ck!pcy15";
 
     private Connection connection;
 
@@ -90,12 +90,14 @@ public class Database {
             System.exit(1);
         }
 
-        for (int i = scores.size() - 1; i > 0; i--) {
-            for (int j = 0; j < i; j++) {
-                if (scores.get(j)[1] < scores.get(j + 1)[1]) {
-                    int[] temp = scores.get(j);
-                    scores.set(j, scores.get(j + 1));
-                    scores.set(j + 1, temp);
+        if (scores != null){
+            for (int i = scores.size() - 1; i > 0; i--) {
+                for (int j = 0; j < i; j++) {
+                    if (scores.get(j)[1] < scores.get(j + 1)[1]) {
+                        int[] temp = scores.get(j);
+                        scores.set(j, scores.get(j + 1));
+                        scores.set(j + 1, temp);
+                    }
                 }
             }
         }
@@ -103,7 +105,10 @@ public class Database {
         int[] IDs = new int[5];
 
         for (int i = 0; i < 5; i++) {
-            IDs[i] = scores.get(i)[0];
+            if (scores != null)
+                IDs[i] = scores.get(i)[0];
+            else
+                IDs[i] = 0;
         }
 
         query = "SELECT * FROM records WHERE id IN (?,?,?,?,?)";
@@ -117,10 +122,16 @@ public class Database {
 
             while(res.next()) {
                 int id = res.getInt("id");
-                int score = res.getInt("score");
-                java.sql.Date date = res.getDate("date");
+                int score;
+                java.sql.Date date;
 
-                results.add(id + ". Score: " + score + ", Date: " + date);
+                if (id != 0) {
+                    score = res.getInt("score");
+                    date = res.getDate("date");
+                    results.add("Score: " + score + ", Date: " + date);
+                } else {
+                    results.add("");
+                }
             }
 
         } catch (SQLException e) {
