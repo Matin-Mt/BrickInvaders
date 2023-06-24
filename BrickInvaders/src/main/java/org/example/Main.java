@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Items.Block;
+import org.example.Items.Bullet;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ public class Main extends PApplet {
     public void settings() {
         size(windowWidth, windowLength);
         smooth(55);
-
     }
 
     @Override

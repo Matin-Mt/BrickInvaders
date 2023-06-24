@@ -1,6 +1,7 @@
 package org.example.Items;
 
 import org.example.Interfaces.Movable;
+import org.example.Main;
 
 public class Bullet extends Item implements Movable {
     private final double ySpeed = -3;
@@ -14,12 +15,14 @@ public class Bullet extends Item implements Movable {
 
     @Override
     public void show() {
+        Main.applet.circle(Main.applet.mouseX,30,1);
 
     }
 
     @Override
     public void move() {
         // does something
+
     }
 
     public double getYSpeed() {
