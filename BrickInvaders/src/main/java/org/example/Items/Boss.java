@@ -19,7 +19,6 @@ public class Boss extends Item implements Movable {
     public Boss(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
         healthChecking();
-        move();
     }
 
     private void healthChecking() {

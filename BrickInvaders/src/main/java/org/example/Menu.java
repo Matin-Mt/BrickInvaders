@@ -17,8 +17,31 @@ public class Menu {
         a.text("Start New Game", Main.windowWidth / 2f, 150);
         a.text("View Top Players", Main.windowWidth / 2f, 200);
         a.text("Exit", Main.windowWidth / 2f, 250);
-        a.text("X: " + a.mouseX, Main.windowWidth / 2f, 300);
-        a.text("Y: " + a.mouseY, Main.windowWidth / 2f, 350);
+    }
+
+    public static void game_menu(Wave wave) {
+        a.background(0, 255, 255);
+        wave.getShooter().move();
+        wave.getShooter().show();
+        wave.show();
+
+
+        a.fill(52, 199, 84);
+        a.noStroke();
+        a.rect(0, 0, Main.windowWidth, 50);
+        a.fill(255, 0, 0);
+        a.textAlign(a.LEFT);
+        a.textSize(14);
+        a.text("HP:(1) " + wave.getShooter().getHP(), 5, 20);
+        a.text("Shot Power:(2) " + wave.getShooter().getShotPower(), 95, 20);
+        a.text("Shot Rate:(3) " + (-1 * wave.getShooter().getShotSpeed()), 265, 20);
+
+        a.text("Level: " + wave.getShooter().getLevel(), 5, 40);
+        a.text("EXP: " + wave.getShooter().getCurrent_EXP() + "/" + wave.getShooter().getMax_EXP(), 95, 40);
+        a.text("Levelup Points: " + wave.getShooter().getLevelUpPointer(), 265, 40);
+
+        a.fill(52, 199, 84);
+        a.rect(0, Main.windowLength - 50, Main.windowWidth, 50);
     }
 
     public static void record_menu() {
@@ -41,8 +64,6 @@ public class Menu {
 
             if (i == 4) {
                 a.text("Back", Main.windowWidth / 2f, minY);
-                a.text("X: " + a.mouseX, Main.windowWidth / 2f, minY + 50);
-                a.text("Y: " + a.mouseY, Main.windowWidth / 2f, minY + 100);
             }
         }
 

@@ -1,9 +1,7 @@
 package org.example;
 
-import org.example.Items.Block;
+import org.example.Items.Shooter;
 import processing.core.PApplet;
-
-import javax.swing.text.html.HTMLDocument;
 
 public class Main extends PApplet {
     public static PApplet applet;
@@ -11,7 +9,12 @@ public class Main extends PApplet {
     public static int windowWidth = 400;
     public static int windowLength = 700;
 
-    String menu = "main_menu";
+    private Wave wave;
+    private static Shooter shooter;
+    public static int mouseXCoordinate;
+
+    private String menu = "main_menu";
+    public static boolean gameStarted = false;
 
     public static void main(String[] args) {
         PApplet.main("org.example.Main");
@@ -31,8 +34,19 @@ public class Main extends PApplet {
     @Override
     public void draw() {
         if (menu.equals("main_menu")) {
+            gameStarted = false;
             background(250);
             Menu.main_menu();
+        }
+
+        if (menu.equals("game_menu")) {
+            mouseXCoordinate = mouseX;
+            if (!gameStarted) {
+                gameStarted = true;
+                shooter = new Shooter(mouseXCoordinate, 50);
+                wave = new Wave(shooter);
+            }
+            Menu.game_menu(wave);
         }
 
         if (menu.equals("record_menu")) {
@@ -59,7 +73,9 @@ public class Main extends PApplet {
         }
 
         if (menu.equals("record_menu")) {
-
+            if (mouseY >= 380 && mouseY <= 400)
+                if (mouseX >= 170 && mouseX <= 225)
+                    menu = "main_menu";
         }
     }
 }
