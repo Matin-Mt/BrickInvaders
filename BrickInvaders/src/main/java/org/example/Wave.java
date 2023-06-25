@@ -8,10 +8,9 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 public class Wave {
-    private static PApplet applet = Main.applet;
+    private static PApplet a = Main.applet;
     Wave wave;
 
-    private boolean exist = true;
     private static int waveLevel = 1;
     private static int blockNumber = 12;
 
@@ -22,10 +21,8 @@ public class Wave {
     public Wave(Shooter shooter) {
         wave = this;
         Wave.shooter = shooter;
-        waveBlocks = new ArrayList<>(blockNumber);
+        waveBlocks = new ArrayList<>();
         createBlocks();
-        waveExist();
-        move();
     }
 
     public void show() {
@@ -39,7 +36,7 @@ public class Wave {
         }
     }
 
-    private void move() {
+    public void move() {
         if (waveBlocks != null) {
             for (var b: waveBlocks) {
                 b.move();
@@ -51,7 +48,11 @@ public class Wave {
     }
 
     private void levelWave() {
-        exist = true;
+        for (int i = 0; i < 600; i++) {
+            a.fill(255, 0, 0);
+            a.textSize(35);
+            a.text("Wave", 200, 200);
+        }
         waveLevel++;
         blockNumberUpdate();
         wave = new Wave(Wave.shooter);
@@ -64,14 +65,14 @@ public class Wave {
     private void createBlocks() {
         if (waveLevel % 5 != 0) {
             int blocksPerRow = 4;
-            int lowYCoordinate = - Block.blockLength - 30;
-            final int highXCoordinate = Main.windowWidth / blocksPerRow;
+            int lowYCoordinate = - Block.blockWidth - 30;
+            final int highXCoordinate = Main.windowLength / blocksPerRow;
 
             int lowCoordinate = 0;
             int highCoordinate = highXCoordinate - 20;
 
             for (int i = 1; i < blockNumber; i++) {
-                waveBlocks.add(new Block((int) applet.random(lowCoordinate, highCoordinate), (int) applet.random(lowYCoordinate - 30, lowYCoordinate + 30)));
+                waveBlocks.add(new Block((int) a.random(lowCoordinate, highCoordinate), (int) a.random(lowYCoordinate - 30, lowYCoordinate + 30)));
 
                 lowCoordinate += highXCoordinate;
                 highCoordinate += highXCoordinate;
@@ -79,7 +80,7 @@ public class Wave {
                 if (highCoordinate > Main.windowWidth) {
                     lowCoordinate = 0;
                     highCoordinate = highXCoordinate;
-                    lowYCoordinate -= (Block.blockLength + 70);
+                    lowYCoordinate -= (Block.blockWidth + 70);
                 }
             }
 
@@ -88,48 +89,31 @@ public class Wave {
         }
     }
 
-    private void waveExist() {
-        Thread thread = new Thread(() -> {
-            while (true) {
+    public void waveExist() {
+        boolean exist = false;
 
-                if (waveLevel % 5 != 0) {
-                    if (waveBlocks != null) {
-                        exist = false;
-
-                        for (var b : waveBlocks) {
-                            if (b.exist() && b.getYCoordinate() < Main.windowLength) {
-                                exist = true;
-                            }
-                        }
-
-                        if (!exist) {
-                            try {
-                                Thread.sleep(10000);
-                                levelWave();
-                                break;
-
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                } else if (boss != null) {
-                    if (!boss.exist() || boss.getYCoordinate() - (boss.getBossLength() / 2) >= Main.windowLength) {
-                        exist = false;
-                        try {
-                            Thread.sleep(10000);
-                            levelWave();
-                            break;
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+        if (waveLevel % 5 != 0) {
+            if (waveBlocks != null) {
+                for (var b : waveBlocks) {
+                    if (b.exist() && b.getYCoordinate() < Main.windowLength - 10) {
+                        exist = true;
+                        break;
                     }
                 }
             }
-        });
-        thread.start();
+
+        } else if (boss != null) {
+            exist = boss.exist() && !(boss.getYCoordinate() - (boss.getBossLength() / 2) >= Main.windowLength);
+        }
+
+        if (exist) {
+            move();
+            show();
+
+        } else {
+            levelWave();
+        }
+
     }
 
     public Shooter getShooter() {

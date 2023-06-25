@@ -2,43 +2,50 @@ package org.example.Items;
 
 import org.example.Interfaces.Movable;
 import org.example.Main;
+import processing.core.PApplet;
 
 public class Block extends Item implements Movable {
+    public static PApplet a = Main.applet;
+
     private double Health = 2;
     private int EXP = 1;
-    public static int speedY = 30;
+    public static double speedY = 1;
 
     public static int blockWidth = 15;
     public static int blockLength = 50;
 
     public Block(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
-
-        healthChecking();
     }
 
     private void healthChecking() {
-        Thread thread = new Thread(() -> {
-            while (true) {
-                if (Health <= 0) {
-                    setExist(false);
-                    move();
-                }
+        if (exist()) {
+            if (Health <= 0) {
+                setExist(false);
             }
-        });
-        thread.start();
+
+            if (getYCoordinate() >= Main.windowLength) {
+                setExist(false);
+            }
+        }
     }
 
-
-
-
+    @Override
     public void show() {
-        Main.applet.rect((float) getXCoordinate(),(float) getYCoordinate(),blockLength,blockWidth);
+        if (exist() && yCoordinate < Main.windowLength - 50){
+            a.fill(174, 255, 0);
+            a.rect((float) getXCoordinate(), (float) getYCoordinate(), blockLength, blockWidth);
+            a.fill(255, 0, 0);
+            a.textAlign(a.CENTER);
+            a.text(Double.toString(Health), (float) ((blockLength / 2) + xCoordinate), (float) ((blockWidth / 2) + yCoordinate));
+        }
     }
 
     @Override
     public void move() {
-        setYCoordinate(getYCoordinate()+1);
+        if (exist() && yCoordinate <= Main.windowLength + 5){
+            setYCoordinate(getYCoordinate() + speedY);
+        }
     }
 
     public void loseHealth(double damage) {
@@ -59,11 +66,11 @@ public class Block extends Item implements Movable {
         this.EXP = EXP;
     }
 
-    public static int getSpeedY() {
+    public static double getSpeedY() {
         return speedY;
     }
 
-    public static void setSpeedY(int speedY) {
+    public static void setSpeedY(double speedY) {
         Block.speedY = speedY;
     }
 

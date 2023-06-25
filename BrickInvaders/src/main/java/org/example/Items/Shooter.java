@@ -16,14 +16,11 @@ public class Shooter extends Item implements Movable, Shootable {
 
     public Shooter(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
-        shoot();
     }
 
     @Override
     public void shoot() {
-        Thread thread = new Thread(() -> {
-            // does something
-        });
+        // does something
     }
 
     @Override

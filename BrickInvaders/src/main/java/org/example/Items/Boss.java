@@ -48,24 +48,16 @@ public class Boss extends Item implements Movable {
 
     @Override
     public void move() {
-        Thread thread = new Thread(() -> {
-            while (exist() && getYCoordinate() - (bossLength / 2) < Main.windowLength) {
-                setXCoordinate(getXCoordinate() + xSpeed);
-                setYCoordinate(getYCoordinate() + ySpeed);
+        if (exist() && yCoordinate <= Main.windowLength){
+            setXCoordinate(getXCoordinate() + xSpeed);
+            setYCoordinate(getYCoordinate() + ySpeed);
 
-                if ((getXCoordinate() + (bossWidth / 2)) >= Main.windowWidth)
-                    setXSpeed(-1 * xSpeed);
-                if (getXCoordinate() - (bossWidth / 2) <= 0) {
-                    setXSpeed(-1 * xSpeed);
-                }
-                try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            if ((getXCoordinate() + (bossWidth / 2)) >= Main.windowWidth)
+                setXSpeed(-1 * xSpeed);
+            if (getXCoordinate() - (bossWidth / 2) <= 0) {
+                setXSpeed(-1 * xSpeed);
             }
-        });
-        thread.start();
+        }
     }
 
     public void loseHealth(double damage) {

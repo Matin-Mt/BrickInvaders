@@ -23,7 +23,7 @@ public class Menu {
         a.background(0, 255, 255);
         wave.getShooter().move();
         wave.getShooter().show();
-        wave.show();
+        wave.waveExist();
 
 
         a.fill(52, 199, 84);
