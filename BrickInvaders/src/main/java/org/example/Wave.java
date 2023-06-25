@@ -26,6 +26,17 @@ public class Wave {
         createBlocks();
     }
 
+    public void healthChecking() {
+        if (waveBlocks != null) {
+            for (var b: waveBlocks) {
+                b.healthChecking();
+            }
+        }
+        if (boss != null) {
+            boss.healthChecking();
+        }
+    }
+
     public void show() {
         if (waveBlocks != null) {
             for (var b: waveBlocks) {
@@ -58,10 +69,15 @@ public class Wave {
         blockNumber = waveLevel * Number;
         Block.setHealth(Block.getHealth() + 1);
         Block.setEXP(Block.getEXP() + 1);
+        if (waveLevel % 5 == 1) {
+            Boss.setHealth(Boss.getHealth() + 20);
+            Boss.setEXP(Boss.getEXP() + 15);
+        }
     }
 
     private void createBlocks() {
         if (waveLevel % 5 != 0) {
+            waveBlocks = new ArrayList<>();
             int blocksPerRow = 4;
             int lowYCoordinate = - Block.blockWidth - 30;
             final int highXCoordinate = Main.windowLength / blocksPerRow;
@@ -101,7 +117,9 @@ public class Wave {
             }
 
         } else if (boss != null) {
-            exist = boss.exist() && !(boss.getYCoordinate() - (boss.getBossLength() / 2) >= Main.windowLength);
+            if (boss.exist() && boss.getYCoordinate() < Main.windowLength) {
+                exist = true;
+            }
         }
 
         return exist;

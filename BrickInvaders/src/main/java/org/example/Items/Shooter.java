@@ -2,8 +2,12 @@ package org.example.Items;
 
 import org.example.Interfaces.Movable;
 import org.example.Interfaces.Shootable;
+import org.example.Main;
+import processing.core.PApplet;
 
 public class Shooter extends Item implements Movable, Shootable {
+    private static PApplet a = Main.applet;
+
     private int HP = 3;
     private int Max_EXP = 5;
     private int current_EXP = 0;
@@ -25,12 +29,12 @@ public class Shooter extends Item implements Movable, Shootable {
 
     @Override
     public void show() {
-
+        a.rect((float) xCoordinate, Main.windowLength - 70, 20, 20);
     }
 
     @Override
     public void move() {
-        // does something
+        setXCoordinate(a.mouseX);
     }
 
     private void addLevel() {

@@ -18,7 +18,7 @@ public class Block extends Item implements Movable {
         super(xCoordinate, yCoordinate);
     }
 
-    private void healthChecking() {
+    public void healthChecking() {
         if (exist()) {
             if (Health <= 0) {
                 setExist(false);

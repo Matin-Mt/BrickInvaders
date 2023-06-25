@@ -20,10 +20,13 @@ public class Menu {
     }
 
     public static void game_menu(Wave wave) {
+        wave.getShooter().move();
+        wave.getShooter().show();
         if (wave.exist()) {
             a.background(0, 255, 255);
             wave.getShooter().move();
             wave.getShooter().show();
+            wave.healthChecking();
             wave.move();
             wave.show();
         } else {

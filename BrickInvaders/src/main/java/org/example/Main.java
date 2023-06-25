@@ -11,7 +11,6 @@ public class Main extends PApplet {
 
     private Wave wave;
     public static Shooter shooter;
-    public static int mouseXCoordinate;
 
     private String menu = "main_menu";
     public static boolean gameStarted = false;
@@ -40,10 +39,9 @@ public class Main extends PApplet {
         }
 
         if (menu.equals("game_menu")) {
-            mouseXCoordinate = mouseX;
             if (!gameStarted) {
                 gameStarted = true;
-                shooter = new Shooter(mouseXCoordinate, 50);
+                shooter = new Shooter(mouseX, 50);
                 wave = new Wave(shooter);
             }
             Menu.game_menu(wave);

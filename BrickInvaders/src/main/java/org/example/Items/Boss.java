@@ -7,8 +7,8 @@ import processing.core.PApplet;
 public class Boss extends Item implements Movable {
     private final static PApplet a = Main.applet;
 
-    private double Health = 20;
-    private int EXP = 15;
+    private static double Health = 20;
+    private static int EXP = 15;
 
     private double ySpeed = 0.3;
     private double xSpeed = 0.6;
@@ -18,20 +18,17 @@ public class Boss extends Item implements Movable {
 
     public Boss(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
-        healthChecking();
     }
 
-    private void healthChecking() {
-        Thread thread = new Thread(() -> {
-            while (exist() && (yCoordinate - (bossLength / 2)) < Main.windowLength) {
-                if (Health <= 0)
-                    setExist(false);
-
-                if (yCoordinate >= Main.windowLength + (bossLength / 2))
-                    setExist(false);
+    public void healthChecking() {
+        if (exist() && (yCoordinate - (bossLength / 2)) < Main.windowLength) {
+            if (Health <= 0) {
+                setExist(false);
             }
-        });
-        thread.start();
+            if (yCoordinate >= Main.windowLength + (bossLength / 2)) {
+                setExist(false);
+            }
+        }
     }
 
     @Override
@@ -66,16 +63,20 @@ public class Boss extends Item implements Movable {
 
     // getter & setter
 
-    public double getHealth() {
+    public static double getHealth() {
         return Health;
     }
 
-    public int getEXP() {
+    public static void setHealth(double Health) {
+        Boss.Health = Health;
+    }
+
+    public static int getEXP() {
         return EXP;
     }
 
-    public void setEXP(int EXP) {
-        this.EXP = EXP;
+    public static void setEXP(int EXP) {
+        Boss.EXP = EXP;
     }
 
     public double getYSpeed() {
