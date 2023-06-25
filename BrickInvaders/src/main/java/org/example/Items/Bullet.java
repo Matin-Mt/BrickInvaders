@@ -9,7 +9,7 @@ public class Bullet extends Item implements Movable {
     public Bullet(double xCoordinate, double yCoordinate, double power) {
         super(xCoordinate, yCoordinate);
         Bullet.power = power;
-        move(xCoordinate, yCoordinate);
+        move();
     }
 
     @Override
@@ -18,7 +18,7 @@ public class Bullet extends Item implements Movable {
     }
 
     @Override
-    public void move(double xCoordinate, double yCoordinate) {
+    public void move() {
         // does something
     }
 

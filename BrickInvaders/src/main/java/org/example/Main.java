@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.Items.Shooter;
 import processing.core.PApplet;
 
 public class Main extends PApplet {
@@ -7,6 +8,13 @@ public class Main extends PApplet {
 
     public static int windowWidth = 400;
     public static int windowLength = 700;
+
+    private Wave wave;
+    private static Shooter shooter;
+    public static int mouseXCoordinate;
+
+    private String menu = "main_menu";
+    public static boolean gameStarted = false;
 
     public static void main(String[] args) {
         PApplet.main("org.example.Main");
@@ -25,7 +33,49 @@ public class Main extends PApplet {
 
     @Override
     public void draw() {
-        background(75, 191, 199);
+        if (menu.equals("main_menu")) {
+            gameStarted = false;
+            background(250);
+            Menu.main_menu();
+        }
 
+        if (menu.equals("game_menu")) {
+            mouseXCoordinate = mouseX;
+            if (!gameStarted) {
+                gameStarted = true;
+                shooter = new Shooter(mouseXCoordinate, 50);
+                wave = new Wave(shooter);
+            }
+            Menu.game_menu(wave);
+        }
+
+        if (menu.equals("record_menu")) {
+            background(250);
+            Menu.record_menu();
+        }
+    }
+
+    @Override
+    public void mousePressed() {
+        if (menu.equals("main_menu")) {
+            if (mouseY >= 125 && mouseY <= 150) {
+                if (mouseX >= 90 && mouseX <= 310)
+                    menu = "game_menu";
+
+            } else if (mouseY >= 175 && mouseY <= 200) {
+                if (mouseX >= 85 && mouseX <= 315)
+                    menu = "record_menu";
+
+            } else if (mouseY >= 225 && mouseY <= 250) {
+                if (mouseX >= 175 && mouseX <= 225)
+                    System.exit(0);
+            }
+        }
+
+        if (menu.equals("record_menu")) {
+            if (mouseY >= 380 && mouseY <= 400)
+                if (mouseX >= 170 && mouseX <= 225)
+                    menu = "main_menu";
+        }
     }
 }
