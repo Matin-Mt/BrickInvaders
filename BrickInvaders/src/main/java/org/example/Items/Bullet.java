@@ -15,7 +15,7 @@ public class Bullet extends Item implements Movable {
 
     @Override
     public void show() {
-        Main.applet.circle(Main.applet.mouseX,600,15);
+        Main.applet.circle((float) xCoordinate,(float)yCoordinate ,15);
 
     }
 
