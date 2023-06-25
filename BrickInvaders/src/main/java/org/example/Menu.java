@@ -20,11 +20,15 @@ public class Menu {
     }
 
     public static void game_menu(Wave wave) {
-        a.background(0, 255, 255);
-        wave.getShooter().move();
-        wave.getShooter().show();
-        wave.waveExist();
-
+        if (wave.exist()) {
+            a.background(0, 255, 255);
+            wave.getShooter().move();
+            wave.getShooter().show();
+            wave.move();
+            wave.show();
+        } else {
+            wave.levelWave();
+        }
 
         a.fill(52, 199, 84);
         a.noStroke();
@@ -42,6 +46,10 @@ public class Menu {
 
         a.fill(52, 199, 84);
         a.rect(0, Main.windowLength - 50, Main.windowWidth, 50);
+        a.textAlign(a.CENTER);
+        a.fill(255, 0, 0);
+        a.textSize(24);
+        a.text("WAVE: " + wave.getLevel(), Main.windowWidth / 2f, Main.windowLength - 20);
     }
 
     public static void record_menu() {

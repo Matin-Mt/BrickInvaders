@@ -11,8 +11,9 @@ public class Wave {
     private static PApplet a = Main.applet;
     Wave wave;
 
-    private static int waveLevel = 1;
+    public static int waveLevel = 1;
     private static int blockNumber = 12;
+    private int Number = 10;
 
     private static Shooter shooter;
     private ArrayList<Block> waveBlocks;
@@ -47,19 +48,16 @@ public class Wave {
         }
     }
 
-    private void levelWave() {
-        for (int i = 0; i < 600; i++) {
-            a.fill(255, 0, 0);
-            a.textSize(35);
-            a.text("Wave", 200, 200);
-        }
+    public void levelWave() {
         waveLevel++;
-        blockNumberUpdate();
-        wave = new Wave(Wave.shooter);
+        blockUpdate();
+        createBlocks();
     }
 
-    private void blockNumberUpdate() {
-        blockNumber = (int) (waveLevel * blockNumber * 1.2);
+    private void blockUpdate() {
+        blockNumber = waveLevel * Number;
+        Block.setHealth(Block.getHealth() + 1);
+        Block.setEXP(Block.getEXP() + 1);
     }
 
     private void createBlocks() {
@@ -89,7 +87,7 @@ public class Wave {
         }
     }
 
-    public void waveExist() {
+    public boolean exist() {
         boolean exist = false;
 
         if (waveLevel % 5 != 0) {
@@ -106,14 +104,15 @@ public class Wave {
             exist = boss.exist() && !(boss.getYCoordinate() - (boss.getBossLength() / 2) >= Main.windowLength);
         }
 
-        if (exist) {
-            move();
-            show();
+        return exist;
+    }
 
-        } else {
-            levelWave();
-        }
+    public Wave getWave() {
+        return wave;
+    }
 
+    public int getLevel() {
+        return waveLevel;
     }
 
     public Shooter getShooter() {

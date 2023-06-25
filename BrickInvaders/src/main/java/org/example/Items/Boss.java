@@ -37,11 +37,11 @@ public class Boss extends Item implements Movable {
     @Override
     public void show() {
         if (exist() && (getYCoordinate() - (bossLength / 2)) < Main.windowLength) {
-            a.fill(0);
+            a.fill(174, 255, 0);
             a.arc((float) getXCoordinate(), (float) getYCoordinate(), (float) bossWidth, (float) bossLength, a.PI, 2 * a.PI);
-            a.fill(255);
+            a.fill(255, 0, 0);
             a.textAlign(a.CENTER);
-            a.textSize(16);
+            a.textSize(14);
             a.text(Double.toString(getHealth()), (float) getXCoordinate(), (float) getYCoordinate() - 20);
         }
     }

@@ -7,8 +7,8 @@ import processing.core.PApplet;
 public class Block extends Item implements Movable {
     public static PApplet a = Main.applet;
 
-    private double Health = 2;
-    private int EXP = 1;
+    private static double Health = 2;
+    private static int EXP = 1;
     public static double speedY = 1;
 
     public static int blockWidth = 15;
@@ -37,6 +37,7 @@ public class Block extends Item implements Movable {
             a.rect((float) getXCoordinate(), (float) getYCoordinate(), blockLength, blockWidth);
             a.fill(255, 0, 0);
             a.textAlign(a.CENTER);
+            a.textSize(14);
             a.text(Double.toString(Health), (float) ((blockLength / 2) + xCoordinate), (float) ((blockWidth / 2) + yCoordinate));
         }
     }
@@ -54,16 +55,20 @@ public class Block extends Item implements Movable {
 
     // getter & setter
 
-    public double getHealth() {
+    public static double getHealth() {
         return Health;
     }
 
-    public int getEXP() {
+    public static void setHealth(double Health) {
+        Block.Health = Health;
+    }
+
+    public static int getEXP() {
         return EXP;
     }
 
-    public void setEXP(int EXP) {
-        this.EXP = EXP;
+    public static void setEXP(int EXP) {
+        Block.EXP = EXP;
     }
 
     public static double getSpeedY() {
