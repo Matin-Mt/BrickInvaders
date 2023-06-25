@@ -24,6 +24,10 @@ public class Block extends Item implements Movable {
                     setExist(false);
                     move();
                 }
+                if(yCoordinate>700){
+                    setExist(false);
+                    move();
+                }
             }
         });
         thread.start();
