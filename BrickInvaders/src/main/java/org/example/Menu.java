@@ -22,6 +22,7 @@ public class Menu {
     public static void game_menu(Wave wave) {
         a.background(0, 255, 255);
         if (wave.exist()) {
+            wave.collide();
             wave.healthChecking();
             wave.move();
             wave.show();
@@ -37,7 +38,7 @@ public class Menu {
         a.textSize(14);
         a.text("HP:(1) " + Wave.shooter.getHP(), 5, 20);
         a.text("Shot Power:(2) " + Wave.shooter.getShotPower(), 95, 20);
-        a.text("Shot Rate:(3) " + (-1 * Wave.shooter.getShotSpeed()), 265, 20);
+        a.text("Shot Rate:(3) " + Wave.shooter.getShotSpeed(), 265, 20);
 
         a.text("Level: " + Wave.shooter.getLevel(), 5, 40);
         a.text("EXP: " + Wave.shooter.getCurrent_EXP() + "/" + Wave.shooter.getMax_EXP(), 95, 40);

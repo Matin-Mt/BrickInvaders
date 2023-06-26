@@ -28,10 +28,22 @@ public class Wave {
         createBlocks();
     }
 
+    public void collide() {
+        if (waveBlocks != null) {
+            for (var b: waveBlocks) {
+                if (b.exist()){
+                    b.bulletCollide();
+                }
+            }
+        }
+    }
+
     public void healthChecking() {
         if (bullets != null) {
             for (var b: bullets) {
-                b.healthChecking();
+                if (b.exist()){
+                    b.healthChecking();
+                }
             }
         }
         if (waveBlocks != null) {
@@ -47,17 +59,23 @@ public class Wave {
     public void show() {
         if (bullets != null) {
             for (var b: bullets) {
-                b.show();
+                if (b.exist()){
+                    b.show();
+                }
             }
         }
         shooter.show();
         if (waveBlocks != null) {
             for (var b: waveBlocks) {
-                b.show();
+                if (b.exist()){
+                    b.show();
+                }
             }
         }
         if (boss != null) {
-            boss.show();
+            if (boss.exist()){
+                boss.show();
+            }
         }
     }
 
@@ -65,16 +83,22 @@ public class Wave {
         shooter.move();
         if (bullets != null) {
             for (var b: bullets) {
-                b.move();
+                if (b.exist()){
+                    b.move();
+                }
             }
         }
         if (waveBlocks != null) {
             for (var b: waveBlocks) {
-                b.move();
+                if (b.exist()){
+                    b.move();
+                }
             }
         }
         if (boss != null) {
-            boss.move();
+            if (boss.exist()){
+                boss.move();
+            }
         }
     }
 

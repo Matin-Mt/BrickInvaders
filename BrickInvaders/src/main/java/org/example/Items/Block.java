@@ -10,6 +10,7 @@ public class Block extends Item implements Movable, Killable {
     public static PApplet a = Main.applet;
 
     private static double Health = 2;
+    private double HP = Health;
     private static int EXP = 1;
     public static double speedY = 1;
 
@@ -22,7 +23,7 @@ public class Block extends Item implements Movable, Killable {
 
     public void healthChecking() {
         if (exist()) {
-            if (Health <= 0) {
+            if (HP <= 0) {
                 setExist(false);
                 Wave.shooter.setCurrent_EXP(Wave.shooter.getCurrent_EXP() + getEXP());
             }
@@ -41,7 +42,7 @@ public class Block extends Item implements Movable, Killable {
             a.fill(255, 0, 0);
             a.textAlign(a.CENTER);
             a.textSize(14);
-            a.text(Double.toString(Health), (float) ((blockLength / 2) + xCoordinate), (float) ((blockWidth / 2) + yCoordinate));
+            a.text(Double.toString(getHP()), (float) ((blockLength / 2) + xCoordinate), (float) ((blockWidth / 2) + yCoordinate));
         }
     }
 
@@ -52,8 +53,8 @@ public class Block extends Item implements Movable, Killable {
         }
     }
 
-    public void loseHealth(double damage) {
-        Health -= damage;
+    public void loseHP(double damage) {
+        setHP(HP - damage);
     }
 
     // getter & setter
@@ -82,14 +83,24 @@ public class Block extends Item implements Movable, Killable {
         Block.speedY = speedY;
     }
 
+    public double getHP() {
+        return HP;
+    }
+
+    public void setHP(double HP) {
+        this.HP = HP;
+    }
+
     @Override
     public boolean bulletCollide() {
         if (Wave.bullets != null) {
             for (var b: Wave.bullets) {
                 if (b.exist()) {
-                    if (yCoordinate + blockWidth == b.getYCoordinate() - 15) {
-                        if (xCoordinate <= b.getXCoordinate() + 15 && xCoordinate + blockWidth >= b.getXCoordinate() - 15) {
+                    if (yCoordinate <= b.getYCoordinate() - 15 && yCoordinate + blockWidth >= b.getYCoordinate() - 15) {
+                        if (b.getXCoordinate() + 15 >= getXCoordinate() && b.getXCoordinate() - 15 <= getXCoordinate() + blockLength) {
                             b.setExist(false);
+                            loseHP(b.getPower());
+                            Wave.bullets.remove(b);
                             return true;
                         }
                     }

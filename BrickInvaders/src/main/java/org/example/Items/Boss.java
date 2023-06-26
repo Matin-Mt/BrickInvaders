@@ -110,6 +110,7 @@ public class Boss extends Item implements Movable, Killable {
                     if (b.getXCoordinate() >= (xCoordinate - (bossWidth / 2)) && b.getXCoordinate() <= (xCoordinate + (bossWidth / 2))) {
                         if (b.getYCoordinate() - 15 == yCoordinate) {
                             b.setExist(false);
+                            Wave.bullets.remove(b);
                             return true;
                         }
                     }

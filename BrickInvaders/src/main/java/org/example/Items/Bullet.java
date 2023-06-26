@@ -19,15 +19,15 @@ public class Bullet extends Item implements Movable {
     public void healthChecking() {
         if (!exist() || yCoordinate < 0) {
             setExist(false);
-            Wave.bullets.remove(Bullet.this);
         }
     }
 
     @Override
     public void show() {
-        a.fill(255, 0 ,0);
-        a.circle((float) xCoordinate,(float) yCoordinate,15);
-
+        if (exist()) {
+            a.fill(255, 0, 0);
+            a.circle((float) xCoordinate, (float) yCoordinate, 15);
+        }
     }
 
     @Override
