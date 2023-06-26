@@ -1,14 +1,17 @@
 package org.example.Items;
 
+import org.example.Interfaces.Killable;
 import org.example.Interfaces.Movable;
 import org.example.Main;
+import org.example.Wave;
 import processing.core.PApplet;
 
-public class Boss extends Item implements Movable {
+public class Boss extends Item implements Movable, Killable {
     private final static PApplet a = Main.applet;
 
-    private double Health = 20;
-    private int EXP = 15;
+    private static double Health = 20;
+    private double HP = Health;
+    private static int EXP = 15;
 
     private double ySpeed = 0.3;
     private double xSpeed = 0.6;
@@ -18,72 +21,66 @@ public class Boss extends Item implements Movable {
 
     public Boss(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
-        healthChecking();
     }
 
-    private void healthChecking() {
-        Thread thread = new Thread(() -> {
-            while (exist() && (yCoordinate - (bossLength / 2)) < Main.windowLength) {
-                if (Health <= 0)
-                    setExist(false);
-
-                if (yCoordinate >= Main.windowLength + (bossLength / 2))
-                    setExist(false);
+    public void healthChecking() {
+        if (exist() && (yCoordinate - (bossLength / 2)) < Main.windowLength) {
+            if (HP <= 0) {
+                setExist(false);
+                Wave.shooter.setCurrent_EXP(Wave.shooter.getCurrent_EXP() + getEXP());
             }
-        });
-        thread.start();
+            if (yCoordinate >= Main.windowLength + (bossLength / 2)) {
+                setExist(false);
+            }
+        }
     }
 
     @Override
     public void show() {
         if (exist() && (getYCoordinate() - (bossLength / 2)) < Main.windowLength) {
-            a.fill(0);
+            a.fill(174, 255, 0);
             a.arc((float) getXCoordinate(), (float) getYCoordinate(), (float) bossWidth, (float) bossLength, a.PI, 2 * a.PI);
-            a.fill(255);
+            a.fill(255, 0, 0);
             a.textAlign(a.CENTER);
-            a.textSize(16);
-            a.text(Double.toString(getHealth()), (float) getXCoordinate(), (float) getYCoordinate() - 20);
+            a.textSize(14);
+            a.text(Double.toString(getHP()), (float) getXCoordinate(), (float) getYCoordinate() - 20);
         }
     }
 
     @Override
     public void move() {
-        Thread thread = new Thread(() -> {
-            while (exist() && getYCoordinate() - (bossLength / 2) < Main.windowLength) {
-                setXCoordinate(getXCoordinate() + xSpeed);
-                setYCoordinate(getYCoordinate() + ySpeed);
+        if (exist() && yCoordinate <= Main.windowLength){
+            setXCoordinate(getXCoordinate() + xSpeed);
+            setYCoordinate(getYCoordinate() + ySpeed);
 
-                if ((getXCoordinate() + (bossWidth / 2)) >= Main.windowWidth)
-                    setXSpeed(-1 * xSpeed);
-                if (getXCoordinate() - (bossWidth / 2) <= 0) {
-                    setXSpeed(-1 * xSpeed);
-                }
-                try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            if ((getXCoordinate() + (bossWidth / 2)) >= Main.windowWidth)
+                setXSpeed(-1 * xSpeed);
+            if (getXCoordinate() - (bossWidth / 2) <= 0) {
+                setXSpeed(-1 * xSpeed);
             }
-        });
-        thread.start();
+        }
     }
 
-    public void loseHealth(double damage) {
-        Health -= damage;
+    public void loseHP(double damage) {
+        HP -= damage;
     }
 
     // getter & setter
 
-    public double getHealth() {
+    public static double getHealth() {
         return Health;
     }
 
-    public int getEXP() {
+    public static void setHealth(double Health) {
+        Boss.Health = Health;
+    }
+
+    public static int getEXP() {
         return EXP;
     }
 
-    public void setEXP(int EXP) {
-        this.EXP = EXP;
+    public static void setEXP(int EXP) {
+        Boss.EXP = EXP;
     }
 
     public double getYSpeed() {
@@ -104,5 +101,37 @@ public class Boss extends Item implements Movable {
 
     public double getBossLength() {
         return bossLength;
+    }
+
+    public double getHP() {
+        return HP;
+    }
+
+    public void setHP(double HP) {
+        this.HP = HP;
+    }
+
+    @Override
+    public boolean bulletCollide() {
+        if (Wave.bullets != null) {
+            for (var b: Wave.bullets) {
+                if (b.exist() && exist()) {
+                    if (b.getXCoordinate() + 15 >= getXCoordinate() - (bossWidth / 2) && b.getXCoordinate() - 15 <= getXCoordinate() + (bossWidth / 2)) {
+                        if (b.getYCoordinate() - 15 <= getYCoordinate() && b.getYCoordinate() - 15 >= getYCoordinate() - 15 ) {
+                            b.setExist(false);
+                            loseHP(b.getPower());
+                            Wave.bullets.remove(b);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean shooterCollide() {
+        return false;
     }
 }

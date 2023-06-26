@@ -1,57 +1,117 @@
 package org.example.Items;
 
+import org.example.Interfaces.Killable;
 import org.example.Interfaces.Movable;
+import org.example.Main;
+import org.example.Wave;
+import processing.core.PApplet;
 
-public class Block extends Item implements Movable {
-    private double Health = 2;
-    private int EXP = 1;
+public class Block extends Item implements Movable, Killable {
+    public static PApplet a = Main.applet;
 
-    public static int blockWidth = 20;
-    public static int blockLength = 60;
+    private static double Health = 2;
+    private double HP = Health;
+    private static int EXP = 1;
+    public static double speedY = 1;
+
+    public static int blockWidth = 15;
+    public static int blockLength = 50;
 
     public Block(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
-        healthChecking();
     }
 
-    private void healthChecking() {
-        Thread thread = new Thread(() -> {
-            while (true) {
-                if (Health <= 0) {
-                    setExist(false);
-                    move();
-                }
+    public void healthChecking() {
+        if (exist()) {
+            if (HP <= 0) {
+                setExist(false);
+                Wave.shooter.setCurrent_EXP(Wave.shooter.getCurrent_EXP() + getEXP());
             }
-        });
-        thread.start();
+
+            if (getYCoordinate() >= Main.windowLength) {
+                setExist(false);
+            }
+        }
     }
 
     @Override
     public void show() {
-
+        if (exist() && yCoordinate < Main.windowLength - 50){
+            a.fill(174, 255, 0);
+            a.rect((float) getXCoordinate(), (float) getYCoordinate(), blockLength, blockWidth);
+            a.fill(255, 0, 0);
+            a.textAlign(a.CENTER);
+            a.textSize(14);
+            a.text(Double.toString(getHP()), (float) ((blockLength / 2) + xCoordinate), (float) ((blockWidth / 2) + yCoordinate));
+        }
     }
 
     @Override
     public void move() {
-        // does something
+        if (exist() && yCoordinate <= Main.windowLength + 5){
+            setYCoordinate(getYCoordinate() + speedY);
+        }
     }
 
-    public void loseHealth(double damage) {
-        Health -= damage;
+    public void loseHP(double damage) {
+        setHP(HP - damage);
     }
 
     // getter & setter
 
-    public double getHealth() {
+    public static double getHealth() {
         return Health;
     }
 
-    public int getEXP() {
+    public static void setHealth(double Health) {
+        Block.Health = Health;
+    }
+
+    public static int getEXP() {
         return EXP;
     }
 
-    public void setEXP(int EXP) {
-        this.EXP = EXP;
+    public static void setEXP(int EXP) {
+        Block.EXP = EXP;
     }
 
+    public static double getSpeedY() {
+        return speedY;
+    }
+
+    public static void setSpeedY(double speedY) {
+        Block.speedY = speedY;
+    }
+
+    public double getHP() {
+        return HP;
+    }
+
+    public void setHP(double HP) {
+        this.HP = HP;
+    }
+
+    @Override
+    public boolean bulletCollide() {
+        if (Wave.bullets != null) {
+            for (var b: Wave.bullets) {
+                if (b.exist()) {
+                    if (yCoordinate <= b.getYCoordinate() - 15 && yCoordinate + blockWidth >= b.getYCoordinate() - 15) {
+                        if (b.getXCoordinate() + 15 >= getXCoordinate() && b.getXCoordinate() - 15 <= getXCoordinate() + blockLength) {
+                            b.setExist(false);
+                            loseHP(b.getPower());
+                            Wave.bullets.remove(b);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean shooterCollide() {
+        return false;
+    }
 }

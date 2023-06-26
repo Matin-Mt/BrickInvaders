@@ -3,6 +3,7 @@ package org.example.Items;
 import org.example.Interfaces.Movable;
 import org.example.Interfaces.Shootable;
 import org.example.Main;
+import org.example.Wave;
 import processing.core.PApplet;
 
 public class Shooter extends Item implements Movable, Shootable {
@@ -15,7 +16,7 @@ public class Shooter extends Item implements Movable, Shootable {
     private int Level = 1;
     private int LevelUpPointer = 0;
 
-    private double shotSpeed = -1;
+    private double shotSpeed = 1;
     private double shotPower = 1;
 
     public Shooter(double xCoordinate, double yCoordinate) {
@@ -26,42 +27,40 @@ public class Shooter extends Item implements Movable, Shootable {
     @Override
     public void shoot() {
         Thread thread = new Thread(() -> {
-            // does something
+            while (true) {
+                Wave.bullets.add(new Bullet(xCoordinate, getYCoordinate() + 5, shotPower));
+                try {
+                    Thread.sleep((long) (1000 / shotSpeed));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         });
+        thread.start();
     }
 
     @Override
     public void show() {
-//        a.fill(0);
-//        a.rect((float) getXCoordinate() - 25, Main.windowLength - 100, 50, 50);
+        a.rect((float) xCoordinate, (float) yCoordinate, 20, 20);
     }
 
     @Override
     public void move() {
-//        setXCoordinate(Main.mouseXCoordinate);
-//        if (xCoordinate <= 25)
-//            setXCoordinate(25);
-//        if (xCoordinate >= Main.windowWidth - 25)
-//            setXCoordinate(Main.windowWidth - 25);
+        setXCoordinate(a.mouseX);
     }
 
-    private void addLevel() {
-        Level++;
-        addHP();
-        addMax_EXP();
-        addLevelUpPointer();
+    public void checkLevelUp() {
+        if (current_EXP >= Max_EXP){
+            Level++;
+            setCurrent_EXP(0);
+            addHP();
+            addMax_EXP();
+            addLevelUpPointer();
+        }
     }
 
     public void addHP() {
         HP++;
-    }
-
-    public void addEXP(int EXP) {
-        current_EXP += EXP;
-        if (current_EXP >= Max_EXP) {
-            setCurrent_EXP(current_EXP - Max_EXP);
-            addLevel();
-        }
     }
 
     private void addMax_EXP() {

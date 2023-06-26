@@ -21,10 +21,15 @@ public class Menu {
 
     public static void game_menu(Wave wave) {
         a.background(0, 255, 255);
-        wave.getShooter().move();
-        wave.getShooter().show();
-        wave.show();
-
+        if (wave.exist()) {
+            wave.collide();
+            wave.healthChecking();
+            Wave.shooter.checkLevelUp();
+            wave.move();
+            wave.show();
+        } else {
+            wave.levelWave();
+        }
 
         a.fill(52, 199, 84);
         a.noStroke();
@@ -32,16 +37,20 @@ public class Menu {
         a.fill(255, 0, 0);
         a.textAlign(a.LEFT);
         a.textSize(14);
-        a.text("HP:(1) " + wave.getShooter().getHP(), 5, 20);
-        a.text("Shot Power:(2) " + wave.getShooter().getShotPower(), 95, 20);
-        a.text("Shot Rate:(3) " + (-1 * wave.getShooter().getShotSpeed()), 265, 20);
+        a.text("HP:(1) " + Wave.shooter.getHP(), 5, 20);
+        a.text("Shot Power:(2) " + Wave.shooter.getShotPower(), 95, 20);
+        a.text("Shot Rate:(3) " + Wave.shooter.getShotSpeed(), 265, 20);
 
-        a.text("Level: " + wave.getShooter().getLevel(), 5, 40);
-        a.text("EXP: " + wave.getShooter().getCurrent_EXP() + "/" + wave.getShooter().getMax_EXP(), 95, 40);
-        a.text("Levelup Points: " + wave.getShooter().getLevelUpPointer(), 265, 40);
+        a.text("Level: " + Wave.shooter.getLevel(), 5, 40);
+        a.text("EXP: " + Wave.shooter.getCurrent_EXP() + "/" + Wave.shooter.getMax_EXP(), 95, 40);
+        a.text("Levelup Points: " + Wave.shooter.getLevelUpPointer(), 265, 40);
 
         a.fill(52, 199, 84);
         a.rect(0, Main.windowLength - 50, Main.windowWidth, 50);
+        a.textAlign(a.CENTER);
+        a.fill(255, 0, 0);
+        a.textSize(24);
+        a.text("WAVE: " + wave.getLevel(), Main.windowWidth / 2f, Main.windowLength - 20);
     }
 
     public static void record_menu() {

@@ -10,8 +10,7 @@ public class Main extends PApplet {
     public static int windowLength = 700;
 
     private Wave wave;
-    private static Shooter shooter;
-    public static int mouseXCoordinate;
+    public static Shooter shooter;
 
     private String menu = "main_menu";
     public static boolean gameStarted = false;
@@ -40,13 +39,16 @@ public class Main extends PApplet {
         }
 
         if (menu.equals("game_menu")) {
-            mouseXCoordinate = mouseX;
             if (!gameStarted) {
                 gameStarted = true;
-                shooter = new Shooter(mouseXCoordinate, 50);
+                shooter = new Shooter(mouseX, windowLength - 70);
                 wave = new Wave(shooter);
             }
             Menu.game_menu(wave);
+            if (!shooter.exist()) {
+                gameStarted = false;
+                // lose menu
+            }
         }
 
         if (menu.equals("record_menu")) {
