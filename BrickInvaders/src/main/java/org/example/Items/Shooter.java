@@ -3,6 +3,7 @@ package org.example.Items;
 import org.example.Interfaces.Movable;
 import org.example.Interfaces.Shootable;
 import org.example.Main;
+import org.example.Wave;
 import processing.core.PApplet;
 
 public class Shooter extends Item implements Movable, Shootable {
@@ -15,21 +16,32 @@ public class Shooter extends Item implements Movable, Shootable {
     private int Level = 1;
     private int LevelUpPointer = 0;
 
-    private double shotSpeed = -1;
+    private double shotSpeed = 1;
     private double shotPower = 1;
 
     public Shooter(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
+        shoot();
     }
 
     @Override
     public void shoot() {
-        // does something
+        Thread thread = new Thread(() -> {
+            while (true) {
+                Wave.bullets.add(new Bullet(xCoordinate, getYCoordinate() + 5, shotPower));
+                try {
+                    Thread.sleep((long) (1000 / shotSpeed));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
 
     @Override
     public void show() {
-        a.rect((float) xCoordinate, Main.windowLength - 70, 20, 20);
+        a.rect((float) xCoordinate, (float) yCoordinate, 20, 20);
     }
 
     @Override

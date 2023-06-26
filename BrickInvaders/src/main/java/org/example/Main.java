@@ -41,7 +41,7 @@ public class Main extends PApplet {
         if (menu.equals("game_menu")) {
             if (!gameStarted) {
                 gameStarted = true;
-                shooter = new Shooter(mouseX, 50);
+                shooter = new Shooter(mouseX, windowLength - 70);
                 wave = new Wave(shooter);
             }
             Menu.game_menu(wave);

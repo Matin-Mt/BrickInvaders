@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.Items.Block;
 import org.example.Items.Boss;
+import org.example.Items.Bullet;
 import org.example.Items.Shooter;
 import processing.core.PApplet;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class Wave {
     private static PApplet a = Main.applet;
     Wave wave;
+    public static ArrayList<Bullet> bullets = new ArrayList<>();
 
     public static int waveLevel = 1;
     private static int blockNumber = 12;
@@ -27,6 +29,11 @@ public class Wave {
     }
 
     public void healthChecking() {
+        if (bullets != null) {
+            for (var b: bullets) {
+                b.healthChecking();
+            }
+        }
         if (waveBlocks != null) {
             for (var b: waveBlocks) {
                 b.healthChecking();
@@ -38,6 +45,12 @@ public class Wave {
     }
 
     public void show() {
+        if (bullets != null) {
+            for (var b: bullets) {
+                b.show();
+            }
+        }
+        shooter.show();
         if (waveBlocks != null) {
             for (var b: waveBlocks) {
                 b.show();
@@ -49,6 +62,12 @@ public class Wave {
     }
 
     public void move() {
+        shooter.move();
+        if (bullets != null) {
+            for (var b: bullets) {
+                b.move();
+            }
+        }
         if (waveBlocks != null) {
             for (var b: waveBlocks) {
                 b.move();
@@ -123,10 +142,6 @@ public class Wave {
         }
 
         return exist;
-    }
-
-    public Wave getWave() {
-        return wave;
     }
 
     public int getLevel() {

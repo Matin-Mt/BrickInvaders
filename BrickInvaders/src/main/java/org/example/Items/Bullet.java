@@ -2,26 +2,37 @@ package org.example.Items;
 
 import org.example.Interfaces.Movable;
 import org.example.Main;
+import org.example.Wave;
+import processing.core.PApplet;
 
 public class Bullet extends Item implements Movable {
+    private static PApplet a = Main.applet;
+
     private final double ySpeed = -3;
     private static double power;
 
     public Bullet(double xCoordinate, double yCoordinate, double power) {
         super(xCoordinate, yCoordinate);
         Bullet.power = power;
-        move();
+    }
+
+    public void healthChecking() {
+        if (!exist() || yCoordinate < 0) {
+            setExist(false);
+            Wave.bullets.remove(Bullet.this);
+        }
     }
 
     @Override
     public void show() {
-        Main.applet.circle(Main.applet.mouseX,600,15);
+        a.fill(255, 0 ,0);
+        a.circle((float) xCoordinate,(float) yCoordinate,15);
 
     }
 
     @Override
     public void move() {
-        setYCoordinate(getYCoordinate()-10);
+        setYCoordinate(yCoordinate + ySpeed);
 
     }
 
