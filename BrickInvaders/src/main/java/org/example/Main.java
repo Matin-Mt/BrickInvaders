@@ -2,9 +2,6 @@ package org.example;
 
 import org.example.Items.Shooter;
 import processing.core.PApplet;
-import processing.event.MouseEvent;
-
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 
 public class Main extends PApplet {
     public static PApplet applet;

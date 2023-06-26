@@ -95,7 +95,7 @@ public class Block extends Item implements Movable, Killable {
     public void bulletCollide() {
         if (Wave.bullets != null) {
             for (var b: Wave.bullets) {
-                if (b.exist()) {
+                if (b.exist() && exist()) {
                     if (yCoordinate <= b.getYCoordinate() - 15 && yCoordinate + blockWidth >= b.getYCoordinate() - 15) {
                         if (b.getXCoordinate() + 15 >= getXCoordinate() && b.getXCoordinate() - 15 <= getXCoordinate() + blockLength) {
                             b.setExist(false);
@@ -111,5 +111,14 @@ public class Block extends Item implements Movable, Killable {
 
     @Override
     public void shooterCollide() {
+        Shooter s = Main.shooter;
+        if (exist() && s.getHP() > 0) {
+            if (getXCoordinate() <= s.getXCoordinate() + 18 && getXCoordinate() + blockLength >= s.getXCoordinate() - 18) {
+                if (getYCoordinate() + blockWidth >= s.getYCoordinate() - 85 && getYCoordinate() <= s.getYCoordinate()) {
+                    setExist(false);
+                    s.loseHP();
+                }
+            }
+        }
     }
 }

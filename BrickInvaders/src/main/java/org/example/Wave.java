@@ -33,11 +33,13 @@ public class Wave {
             for (var b: waveBlocks) {
                 if (b.exist()){
                     b.bulletCollide();
+                    b.shooterCollide();
                 }
             }
         }
         if (boss != null) {
             boss.bulletCollide();
+            boss.shooterCollide();
         }
     }
 

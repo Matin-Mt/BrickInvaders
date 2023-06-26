@@ -73,6 +73,10 @@ public class Shooter extends Item implements Movable, Shootable {
         }
     }
 
+    public void loseHP() {
+        HP--;
+    }
+
     public void addHP() {
         HP++;
         LevelUpPointer -= 1;
