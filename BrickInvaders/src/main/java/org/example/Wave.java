@@ -17,7 +17,7 @@ public class Wave {
     private static int blockNumber = 12;
     private int Number = 10;
 
-    private static Shooter shooter;
+    public static Shooter shooter;
     private ArrayList<Block> waveBlocks;
     private Boss boss;
 
@@ -146,9 +146,5 @@ public class Wave {
 
     public int getLevel() {
         return waveLevel;
-    }
-
-    public Shooter getShooter() {
-        return shooter;
     }
 }

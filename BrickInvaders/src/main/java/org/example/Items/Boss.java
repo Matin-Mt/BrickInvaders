@@ -1,10 +1,12 @@
 package org.example.Items;
 
+import org.example.Interfaces.Killable;
 import org.example.Interfaces.Movable;
 import org.example.Main;
+import org.example.Wave;
 import processing.core.PApplet;
 
-public class Boss extends Item implements Movable {
+public class Boss extends Item implements Movable, Killable {
     private final static PApplet a = Main.applet;
 
     private static double Health = 20;
@@ -24,6 +26,7 @@ public class Boss extends Item implements Movable {
         if (exist() && (yCoordinate - (bossLength / 2)) < Main.windowLength) {
             if (Health <= 0) {
                 setExist(false);
+                Wave.shooter.setCurrent_EXP(Wave.shooter.getCurrent_EXP() + getEXP());
             }
             if (yCoordinate >= Main.windowLength + (bossLength / 2)) {
                 setExist(false);
@@ -97,5 +100,27 @@ public class Boss extends Item implements Movable {
 
     public double getBossLength() {
         return bossLength;
+    }
+
+    @Override
+    public boolean bulletCollide() {
+        if (Wave.bullets != null) {
+            for (var b: Wave.bullets) {
+                if (b.exist()) {
+                    if (b.getXCoordinate() >= (xCoordinate - (bossWidth / 2)) && b.getXCoordinate() <= (xCoordinate + (bossWidth / 2))) {
+                        if (b.getYCoordinate() - 15 == yCoordinate) {
+                            b.setExist(false);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean shooterCollide() {
+        return false;
     }
 }
