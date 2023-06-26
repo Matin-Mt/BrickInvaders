@@ -26,6 +26,7 @@ public class Block extends Item implements Movable, Killable {
             if (HP <= 0) {
                 setExist(false);
                 Wave.shooter.setCurrent_EXP(Wave.shooter.getCurrent_EXP() + getEXP());
+                Wave.shooter.addScore(getEXP());
             }
 
             if (getYCoordinate() >= Main.windowLength) {

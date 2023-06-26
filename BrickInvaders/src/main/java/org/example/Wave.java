@@ -10,11 +10,14 @@ import java.util.ArrayList;
 
 public class Wave {
     private static PApplet a = Main.applet;
+
+    private boolean exist = true;
+
     Wave wave;
     public static ArrayList<Bullet> bullets = new ArrayList<>();
 
-    public static int waveLevel = 1;
-    private static int blockNumber = 12;
+    public static int waveLevel;
+    private static int blockNumber;
     private int Number = 10;
 
     public static Shooter shooter;
@@ -23,9 +26,19 @@ public class Wave {
 
     public Wave(Shooter shooter) {
         wave = this;
+        waveLevel = 1;
+        blockNumber = 12;
         Wave.shooter = shooter;
         waveBlocks = new ArrayList<>();
         createBlocks();
+    }
+
+    public void end() {
+        bullets.clear();
+        waveBlocks.clear();
+        boss = null;
+        shooter.setExist(false);
+        setExist(false);
     }
 
     public void collide() {
@@ -44,65 +57,71 @@ public class Wave {
     }
 
     public void healthChecking() {
-        if (bullets != null) {
-            for (var b: bullets) {
-                if (b.exist()){
+        if (exist()) {
+            if (bullets != null) {
+                for (var b : bullets) {
+                    if (b.exist()) {
+                        b.healthChecking();
+                    }
+                }
+            }
+            if (waveBlocks != null) {
+                for (var b : waveBlocks) {
                     b.healthChecking();
                 }
             }
-        }
-        if (waveBlocks != null) {
-            for (var b: waveBlocks) {
-                b.healthChecking();
+            if (boss != null) {
+                boss.healthChecking();
             }
-        }
-        if (boss != null) {
-            boss.healthChecking();
         }
     }
 
     public void show() {
-        if (bullets != null) {
-            for (var b: bullets) {
-                if (b.exist()){
-                    b.show();
+        if (exist()){
+            if (bullets != null) {
+                for (var b : bullets) {
+                    if (b.exist()) {
+                        b.show();
+                    }
                 }
             }
-        }
-        shooter.show();
-        if (waveBlocks != null) {
-            for (var b: waveBlocks) {
-                if (b.exist()){
-                    b.show();
+            shooter.show();
+            if (waveBlocks != null) {
+                for (var b : waveBlocks) {
+                    if (b.exist()) {
+                        b.show();
+                    }
                 }
             }
-        }
-        if (boss != null) {
-            if (boss.exist()){
-                boss.show();
+            if (boss != null) {
+                if (boss.exist()) {
+                    boss.show();
+                }
             }
         }
     }
 
     public void move() {
-        shooter.move();
-        if (bullets != null) {
-            for (var b: bullets) {
-                if (b.exist()){
-                    b.move();
+        if (exist()) {
+            shooter.move();
+            if (bullets != null) {
+                for (var b : bullets) {
+                    if (b.exist()) {
+                        b.move();
+                    }
                 }
             }
-        }
-        if (waveBlocks != null) {
-            for (var b: waveBlocks) {
-                if (b.exist()){
-                    b.move();
+            if (waveBlocks != null) {
+                for (var b : waveBlocks) {
+                    if (b.exist()) {
+                        b.move();
+                    }
                 }
             }
-        }
-        if (boss != null) {
-            if (boss.exist()){
-                boss.move();
+            if (boss != null) {
+                if (boss.exist()) {
+                    boss.move();
+                }
             }
         }
     }
@@ -151,7 +170,7 @@ public class Wave {
         }
     }
 
-    public boolean exist() {
+    public boolean waveExist() {
         boolean exist = false;
 
         if (waveLevel % 5 != 0) {
@@ -175,5 +194,13 @@ public class Wave {
 
     public int getLevel() {
         return waveLevel;
+    }
+
+    public void setExist(boolean exist) {
+        this.exist = exist;
+    }
+
+    public boolean exist() {
+        return exist;
     }
 }
