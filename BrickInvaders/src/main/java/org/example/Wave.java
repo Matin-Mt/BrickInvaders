@@ -13,7 +13,7 @@ public class Wave {
     Wave wave;
     public static ArrayList<Bullet> bullets = new ArrayList<>();
 
-    public static int waveLevel = 1;
+    public static int waveLevel = 0;
     private static int blockNumber = 12;
     private int Number = 10;
 
@@ -35,6 +35,9 @@ public class Wave {
                     b.bulletCollide();
                 }
             }
+        }
+        if (boss != null) {
+            boss.bulletCollide();
         }
     }
 

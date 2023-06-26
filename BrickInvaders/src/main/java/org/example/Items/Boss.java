@@ -10,6 +10,7 @@ public class Boss extends Item implements Movable, Killable {
     private final static PApplet a = Main.applet;
 
     private static double Health = 20;
+    private double HP = Health;
     private static int EXP = 15;
 
     private double ySpeed = 0.3;
@@ -24,7 +25,7 @@ public class Boss extends Item implements Movable, Killable {
 
     public void healthChecking() {
         if (exist() && (yCoordinate - (bossLength / 2)) < Main.windowLength) {
-            if (Health <= 0) {
+            if (HP <= 0) {
                 setExist(false);
                 Wave.shooter.setCurrent_EXP(Wave.shooter.getCurrent_EXP() + getEXP());
             }
@@ -42,7 +43,7 @@ public class Boss extends Item implements Movable, Killable {
             a.fill(255, 0, 0);
             a.textAlign(a.CENTER);
             a.textSize(14);
-            a.text(Double.toString(getHealth()), (float) getXCoordinate(), (float) getYCoordinate() - 20);
+            a.text(Double.toString(getHP()), (float) getXCoordinate(), (float) getYCoordinate() - 20);
         }
     }
 
@@ -60,8 +61,8 @@ public class Boss extends Item implements Movable, Killable {
         }
     }
 
-    public void loseHealth(double damage) {
-        Health -= damage;
+    public void loseHP(double damage) {
+        HP -= damage;
     }
 
     // getter & setter
@@ -102,14 +103,23 @@ public class Boss extends Item implements Movable, Killable {
         return bossLength;
     }
 
+    public double getHP() {
+        return HP;
+    }
+
+    public void setHP(double HP) {
+        this.HP = HP;
+    }
+
     @Override
     public boolean bulletCollide() {
         if (Wave.bullets != null) {
             for (var b: Wave.bullets) {
-                if (b.exist()) {
-                    if (b.getXCoordinate() >= (xCoordinate - (bossWidth / 2)) && b.getXCoordinate() <= (xCoordinate + (bossWidth / 2))) {
-                        if (b.getYCoordinate() - 15 == yCoordinate) {
+                if (b.exist() && exist()) {
+                    if (b.getXCoordinate() + 15 >= getXCoordinate() - (bossWidth / 2) && b.getXCoordinate() - 15 <= getXCoordinate() + (bossWidth / 2)) {
+                        if (b.getYCoordinate() - 15 <= getYCoordinate() && b.getYCoordinate() - 15 >= getYCoordinate() - 15 ) {
                             b.setExist(false);
+                            loseHP(b.getPower());
                             Wave.bullets.remove(b);
                             return true;
                         }
