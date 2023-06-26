@@ -49,11 +49,14 @@ public class Shooter extends Item implements Movable, Shootable {
         setXCoordinate(a.mouseX);
     }
 
-    private void addLevel() {
-        Level++;
-        addHP();
-        addMax_EXP();
-        addLevelUpPointer();
+    public void checkLevelUp() {
+        if (current_EXP >= Max_EXP){
+            Level++;
+            setCurrent_EXP(0);
+            addHP();
+            addMax_EXP();
+            addLevelUpPointer();
+        }
     }
 
     public void addHP() {

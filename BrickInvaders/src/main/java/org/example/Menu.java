@@ -24,6 +24,7 @@ public class Menu {
         if (wave.exist()) {
             wave.collide();
             wave.healthChecking();
+            Wave.shooter.checkLevelUp();
             wave.move();
             wave.show();
         } else {
