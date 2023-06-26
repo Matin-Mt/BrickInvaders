@@ -112,7 +112,7 @@ public class Boss extends Item implements Movable, Killable {
     }
 
     @Override
-    public boolean bulletCollide() {
+    public void bulletCollide() {
         if (Wave.bullets != null) {
             for (var b: Wave.bullets) {
                 if (b.exist() && exist()) {
@@ -121,17 +121,15 @@ public class Boss extends Item implements Movable, Killable {
                             b.setExist(false);
                             loseHP(b.getPower());
                             Wave.bullets.remove(b);
-                            return true;
+                            return;
                         }
                     }
                 }
             }
         }
-        return false;
     }
 
     @Override
-    public boolean shooterCollide() {
-        return false;
+    public void shooterCollide() {
     }
 }
