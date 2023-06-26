@@ -16,8 +16,8 @@ public class Shooter extends Item implements Movable, Shootable {
     private int Level = 1;
     private int LevelUpPointer = 0;
 
-    private double shotSpeed = 1;
-    private double shotPower = 1;
+    private static double shotSpeed = 1;
+    private static double shotPower = 1;
 
     public Shooter(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
@@ -27,8 +27,8 @@ public class Shooter extends Item implements Movable, Shootable {
     @Override
     public void shoot() {
         Thread thread = new Thread(() -> {
-            while (true) {
-                Wave.bullets.add(new Bullet(xCoordinate, getYCoordinate() + 5, shotPower));
+            while (exist()) {
+                Wave.bullets.add(new Bullet(xCoordinate, getYCoordinate(), shotPower));
                 try {
                     Thread.sleep((long) (1000 / shotSpeed));
                 } catch (InterruptedException e) {
@@ -41,7 +41,22 @@ public class Shooter extends Item implements Movable, Shootable {
 
     @Override
     public void show() {
-        a.rect((float) xCoordinate, (float) yCoordinate, 20, 20);
+        a.fill(105, 104, 99);
+        // body
+        a.arc((float) xCoordinate, (float) (yCoordinate - 25), 36, 20, 0, a.PI);
+        a.rect((float) (xCoordinate - 18), (float) (yCoordinate - 85), 36, 60);
+        // tire
+        a.fill(0);
+        a.circle((float) xCoordinate, (float) (yCoordinate - 15),30);
+        a.fill(0, 255, 255);
+        a.circle((float) xCoordinate, (float) (yCoordinate - 15), 20);
+        a.fill(0);
+        a.circle((float) xCoordinate, (float) (yCoordinate - 15),5);
+        a.stroke(0);
+        a.strokeWeight(5);
+        a.line((float) (xCoordinate - 10), (float) (yCoordinate - 15), (float) (xCoordinate + 10), (float) (yCoordinate - 15));
+        a.line((float) xCoordinate, (float) (yCoordinate - 25), (float) xCoordinate, (float) (yCoordinate + 25));
+        a.noStroke();
     }
 
     @Override
@@ -53,14 +68,18 @@ public class Shooter extends Item implements Movable, Shootable {
         if (current_EXP >= Max_EXP){
             Level++;
             setCurrent_EXP(0);
-            addHP();
             addMax_EXP();
             addLevelUpPointer();
         }
     }
 
+    public void loseHP() {
+        HP--;
+    }
+
     public void addHP() {
         HP++;
+        LevelUpPointer -= 1;
     }
 
     private void addMax_EXP() {
@@ -72,12 +91,14 @@ public class Shooter extends Item implements Movable, Shootable {
     }
 
     public void addShotSpeed() {
-        this.shotSpeed += 0.5;
+        Shooter.shotSpeed += 0.5;
+        LevelUpPointer -= 1;
     }
 
     public void addShotPower() {
-        this.shotPower += 0.5;
+        Shooter.shotPower += 0.5;
         Bullet.setPower(shotPower);
+        LevelUpPointer -= 1;
     }
 
     // getter & setter

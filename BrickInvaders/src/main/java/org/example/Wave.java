@@ -13,7 +13,7 @@ public class Wave {
     Wave wave;
     public static ArrayList<Bullet> bullets = new ArrayList<>();
 
-    public static int waveLevel = 0;
+    public static int waveLevel = 1;
     private static int blockNumber = 12;
     private int Number = 10;
 
@@ -33,11 +33,13 @@ public class Wave {
             for (var b: waveBlocks) {
                 if (b.exist()){
                     b.bulletCollide();
+                    b.shooterCollide();
                 }
             }
         }
         if (boss != null) {
             boss.bulletCollide();
+            boss.shooterCollide();
         }
     }
 
