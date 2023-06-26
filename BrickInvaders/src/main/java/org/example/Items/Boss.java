@@ -131,5 +131,14 @@ public class Boss extends Item implements Movable, Killable {
 
     @Override
     public void shooterCollide() {
+        Shooter s = Main.shooter;
+        if (exist() && s.getHP() > 0) {
+            if (getYCoordinate() >= s.getYCoordinate() - 85 && getYCoordinate() - (bossLength / 2) <= s.getYCoordinate()) {
+                if (getXCoordinate() - (bossWidth / 2) <= s.getXCoordinate() + 18 && getXCoordinate() + (bossWidth / 2) >= s.getXCoordinate() - 18) {
+                    setExist(false);
+                    s.loseHP();
+                }
+            }
+        }
     }
 }
