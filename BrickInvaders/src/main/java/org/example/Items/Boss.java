@@ -28,6 +28,7 @@ public class Boss extends Item implements Movable, Killable {
             if (HP <= 0) {
                 setExist(false);
                 Wave.shooter.setCurrent_EXP(Wave.shooter.getCurrent_EXP() + getEXP());
+                Wave.shooter.addScore(getEXP());
             }
             if (yCoordinate >= Main.windowLength + (bossLength / 2)) {
                 setExist(false);

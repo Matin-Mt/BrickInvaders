@@ -12,7 +12,7 @@ public class Main extends PApplet {
     private Wave wave;
     public static Shooter shooter;
 
-    private String menu = "main_menu";
+    public static String menu = "main_menu";
     public static boolean gameStarted = false;
 
     public static void main(String[] args) {
@@ -47,13 +47,21 @@ public class Main extends PApplet {
             Menu.game_menu(wave);
             if (!shooter.exist()) {
                 gameStarted = false;
-                // lose menu
             }
+        }
+
+        if (menu.equals("game_over_menu")) {
+            Menu.game_over_menu();
         }
 
         if (menu.equals("record_menu")) {
             background(250);
             Menu.record_menu();
+        }
+
+        if (menu.equals("help_menu")) {
+            background(255);
+            Menu.help_menu();
         }
     }
 
@@ -68,14 +76,30 @@ public class Main extends PApplet {
                 if (mouseX >= 85 && mouseX <= 315)
                     menu = "record_menu";
 
-            } else if (mouseY >= 225 && mouseY <= 250) {
-                if (mouseX >= 175 && mouseX <= 225)
+            } else if (mouseY >= 225 && mouseY <= 255) {
+                if (mouseX >= 165 && mouseX <= 235)
+                    menu = "help_menu";
+
+            } else if (mouseY >= 275 && mouseY <= 300) {
+                if (mouseX >= 170 && mouseX <= 230)
                     System.exit(0);
             }
         }
 
+        if (menu.equals("game_over_menu")) {
+            if (mouseX >= 160 && mouseX <= 240)
+                if (mouseY >= 190 && mouseY <= 220)
+                    menu = "main_menu";
+        }
+
         if (menu.equals("record_menu")) {
             if (mouseY >= 380 && mouseY <= 400)
+                if (mouseX >= 170 && mouseX <= 225)
+                    menu = "main_menu";
+        }
+
+        if (menu.equals("help_menu")) {
+            if (mouseY >= 430 && mouseY <= 450)
                 if (mouseX >= 170 && mouseX <= 225)
                     menu = "main_menu";
         }
@@ -87,23 +111,16 @@ public class Main extends PApplet {
             if (menu.equals("game_menu")) {
                 if (gameStarted) {
                     if (shooter.getLevelUpPointer() > 0){
-                        if (keyCode == 'q' || keyCode == 'Q') {
-                            shooter.addHP();
-                            System.out.println(1);
-                            System.out.println(keyCode);
-                            System.out.println(key);
+                        if (shooter.getLevelUpPointer() >= 2) {
+                            if (keyCode == 'q' || keyCode == 'Q') {
+                                shooter.addHP();
+                            }
                         }
                         if (keyCode == 'w' || keyCode == 'W') {
                             shooter.addShotPower();
-                            System.out.println(2);
-                            System.out.println(keyCode);
-                            System.out.println(key);
                         }
                         if (keyCode == 'e' || keyCode == 'E') {
                             shooter.addShotSpeed();
-                            System.out.println(3);
-                            System.out.println(keyCode);
-                            System.out.println(key);
                         }
                     }
                 }
