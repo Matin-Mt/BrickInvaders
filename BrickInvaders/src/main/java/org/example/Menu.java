@@ -51,6 +51,8 @@ public class Menu {
         a.fill(255, 0, 0);
         a.textSize(24);
         a.text("WAVE: " + wave.getLevel(), Main.windowWidth / 2f, Main.windowLength - 20);
+        a.text("x: " + a.mouseX, 5, Main.windowLength - 20);
+        a.text("y: " + a.mouseY, Main.windowWidth - 20, Main.windowLength - 20);
     }
 
     public static void record_menu() {

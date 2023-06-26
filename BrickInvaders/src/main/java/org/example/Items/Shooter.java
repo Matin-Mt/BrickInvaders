@@ -28,7 +28,7 @@ public class Shooter extends Item implements Movable, Shootable {
     public void shoot() {
         Thread thread = new Thread(() -> {
             while (true) {
-                Wave.bullets.add(new Bullet(xCoordinate, getYCoordinate() + 5, shotPower));
+                Wave.bullets.add(new Bullet(xCoordinate, getYCoordinate(), shotPower));
                 try {
                     Thread.sleep((long) (1000 / shotSpeed));
                 } catch (InterruptedException e) {
@@ -41,7 +41,21 @@ public class Shooter extends Item implements Movable, Shootable {
 
     @Override
     public void show() {
-        a.rect((float) xCoordinate, (float) yCoordinate, 20, 20);
+        a.fill(0);
+        // body
+        a.arc((float) xCoordinate, (float) (yCoordinate - 25), 36, 20, 0, a.PI);
+        a.rect((float) (xCoordinate - 18), (float) (yCoordinate - 85), 36, 60);
+        // tire
+        a.circle((float) xCoordinate, (float) (yCoordinate - 15),30);
+        a.fill(0, 255, 255);
+        a.circle((float) xCoordinate, (float) (yCoordinate - 15), 20);
+        a.fill(0);
+        a.circle((float) xCoordinate, (float) (yCoordinate - 15),5);
+        a.stroke(0);
+        a.strokeWeight(5);
+        a.line((float) (xCoordinate - 10), (float) (yCoordinate - 15), (float) (xCoordinate + 10), (float) (yCoordinate - 15));
+        a.line((float) xCoordinate, (float) (yCoordinate - 25), (float) xCoordinate, (float) (yCoordinate + 25));
+        a.noStroke();
     }
 
     @Override
