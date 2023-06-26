@@ -41,11 +41,12 @@ public class Shooter extends Item implements Movable, Shootable {
 
     @Override
     public void show() {
-        a.fill(0);
+        a.fill(105, 104, 99);
         // body
         a.arc((float) xCoordinate, (float) (yCoordinate - 25), 36, 20, 0, a.PI);
         a.rect((float) (xCoordinate - 18), (float) (yCoordinate - 85), 36, 60);
         // tire
+        a.fill(0);
         a.circle((float) xCoordinate, (float) (yCoordinate - 15),30);
         a.fill(0, 255, 255);
         a.circle((float) xCoordinate, (float) (yCoordinate - 15), 20);

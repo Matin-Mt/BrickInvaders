@@ -13,7 +13,7 @@ public class Wave {
     Wave wave;
     public static ArrayList<Bullet> bullets = new ArrayList<>();
 
-    public static int waveLevel = 0;
+    public static int waveLevel = 1;
     private static int blockNumber = 12;
     private int Number = 10;
 
