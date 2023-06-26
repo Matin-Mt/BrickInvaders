@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Database {
     private final String url = "jdbc:mysql://localhost:3306/brickinvaders";
-    private final String user = "root";
-    private final String password = "Mat!nMt_P0ck!pcy15";
+    private final String user = "user";
+    private final String password = "password";
 
     private Connection connection;
 
@@ -16,8 +16,8 @@ public class Database {
         } catch (SQLException e) {
             System.out.println("Something went wrong...");
             System.out.println("Unable to connect!");
-            e.printStackTrace();
-            System.exit(1);
+//            e.printStackTrace();
+//            System.exit(1);
         }
     }
 
