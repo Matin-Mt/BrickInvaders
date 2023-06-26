@@ -37,9 +37,9 @@ public class Menu {
         a.fill(255, 0, 0);
         a.textAlign(a.LEFT);
         a.textSize(14);
-        a.text("HP:(1) " + Wave.shooter.getHP(), 5, 20);
-        a.text("Shot Power:(2) " + Wave.shooter.getShotPower(), 95, 20);
-        a.text("Shot Rate:(3) " + Wave.shooter.getShotSpeed(), 265, 20);
+        a.text("HP:(Q) " + Wave.shooter.getHP(), 5, 20);
+        a.text("Shot Power:(W) " + Wave.shooter.getShotPower(), 95, 20);
+        a.text("Shot Rate:(E) " + Wave.shooter.getShotSpeed(), 265, 20);
 
         a.text("Level: " + Wave.shooter.getLevel(), 5, 40);
         a.text("EXP: " + Wave.shooter.getCurrent_EXP() + "/" + Wave.shooter.getMax_EXP(), 95, 40);
@@ -51,8 +51,6 @@ public class Menu {
         a.fill(255, 0, 0);
         a.textSize(24);
         a.text("WAVE: " + wave.getLevel(), Main.windowWidth / 2f, Main.windowLength - 20);
-        a.text("x: " + a.mouseX, 5, Main.windowLength - 20);
-        a.text("y: " + a.mouseY, Main.windowWidth - 20, Main.windowLength - 20);
     }
 
     public static void record_menu() {

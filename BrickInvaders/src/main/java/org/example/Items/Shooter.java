@@ -16,8 +16,8 @@ public class Shooter extends Item implements Movable, Shootable {
     private int Level = 1;
     private int LevelUpPointer = 0;
 
-    private double shotSpeed = 1;
-    private double shotPower = 1;
+    private static double shotSpeed = 1;
+    private static double shotPower = 1;
 
     public Shooter(double xCoordinate, double yCoordinate) {
         super(xCoordinate, yCoordinate);
@@ -27,7 +27,7 @@ public class Shooter extends Item implements Movable, Shootable {
     @Override
     public void shoot() {
         Thread thread = new Thread(() -> {
-            while (true) {
+            while (exist()) {
                 Wave.bullets.add(new Bullet(xCoordinate, getYCoordinate(), shotPower));
                 try {
                     Thread.sleep((long) (1000 / shotSpeed));
@@ -68,7 +68,6 @@ public class Shooter extends Item implements Movable, Shootable {
         if (current_EXP >= Max_EXP){
             Level++;
             setCurrent_EXP(0);
-            addHP();
             addMax_EXP();
             addLevelUpPointer();
         }
@@ -76,6 +75,7 @@ public class Shooter extends Item implements Movable, Shootable {
 
     public void addHP() {
         HP++;
+        LevelUpPointer -= 1;
     }
 
     private void addMax_EXP() {
@@ -87,12 +87,14 @@ public class Shooter extends Item implements Movable, Shootable {
     }
 
     public void addShotSpeed() {
-        this.shotSpeed += 0.5;
+        Shooter.shotSpeed += 0.5;
+        LevelUpPointer -= 1;
     }
 
     public void addShotPower() {
-        this.shotPower += 0.5;
+        Shooter.shotPower += 0.5;
         Bullet.setPower(shotPower);
+        LevelUpPointer -= 1;
     }
 
     // getter & setter

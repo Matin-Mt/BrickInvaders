@@ -2,6 +2,9 @@ package org.example;
 
 import org.example.Items.Shooter;
 import processing.core.PApplet;
+import processing.event.MouseEvent;
+
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 
 public class Main extends PApplet {
     public static PApplet applet;
@@ -78,6 +81,36 @@ public class Main extends PApplet {
             if (mouseY >= 380 && mouseY <= 400)
                 if (mouseX >= 170 && mouseX <= 225)
                     menu = "main_menu";
+        }
+    }
+
+    @Override
+    public void keyPressed() {
+        if (keyPressed) {
+            if (menu.equals("game_menu")) {
+                if (gameStarted) {
+                    if (shooter.getLevelUpPointer() > 0){
+                        if (keyCode == 'q' || keyCode == 'Q') {
+                            shooter.addHP();
+                            System.out.println(1);
+                            System.out.println(keyCode);
+                            System.out.println(key);
+                        }
+                        if (keyCode == 'w' || keyCode == 'W') {
+                            shooter.addShotPower();
+                            System.out.println(2);
+                            System.out.println(keyCode);
+                            System.out.println(key);
+                        }
+                        if (keyCode == 'e' || keyCode == 'E') {
+                            shooter.addShotSpeed();
+                            System.out.println(3);
+                            System.out.println(keyCode);
+                            System.out.println(key);
+                        }
+                    }
+                }
+            }
         }
     }
 }
