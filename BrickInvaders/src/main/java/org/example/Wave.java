@@ -34,9 +34,6 @@ public class Wave {
     }
 
     public void end() {
-        bullets.clear();
-        waveBlocks.clear();
-        boss = null;
         shooter.setExist(false);
         setExist(false);
     }
@@ -137,8 +134,8 @@ public class Wave {
         Block.setHealth(Block.getHealth() + 1);
         Block.setEXP(Block.getEXP() + 1);
         if (waveLevel % 5 == 1) {
-            Boss.setHealth(Boss.getHealth() + 20);
-            Boss.setEXP(Boss.getEXP() + 15);
+            Boss.setHealth(Boss.getHealth() * 1.5);
+            Boss.setEXP(Boss.getEXP() + 30);
         }
     }
 
