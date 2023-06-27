@@ -14,6 +14,8 @@ public class Shooter extends Item implements Movable, Shootable {
     private int current_EXP = 0;
     private int score = 0;
 
+    public static boolean shielded = false;
+
     private int Level = 1;
     private int LevelUpPointer = 0;
 
@@ -47,6 +49,10 @@ public class Shooter extends Item implements Movable, Shootable {
 
     @Override
     public void show() {
+        if (shielded) {
+            a.fill(200, 222, 31);
+            a.circle((float) (xCoordinate), (float) (yCoordinate - 45), 90);
+        }
         a.fill(105, 104, 99);
         // body
         a.arc((float) xCoordinate, (float) (yCoordinate - 25), 36, 20, 0, a.PI);

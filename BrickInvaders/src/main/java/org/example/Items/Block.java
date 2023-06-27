@@ -123,7 +123,9 @@ public class Block extends Item implements Movable, Killable {
             if (getXCoordinate() <= s.getXCoordinate() + 18 && getXCoordinate() + blockLength >= s.getXCoordinate() - 18) {
                 if (getYCoordinate() + blockWidth >= s.getYCoordinate() - 85 && getYCoordinate() <= s.getYCoordinate()) {
                     setExist(false);
-                    s.loseHP();
+                    if (!Shooter.shielded){
+                        s.loseHP();
+                    }
                 }
             }
         }

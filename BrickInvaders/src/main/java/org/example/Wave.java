@@ -1,12 +1,10 @@
 package org.example;
 
-import org.example.Items.Block;
-import org.example.Items.Boss;
-import org.example.Items.Bullet;
-import org.example.Items.Shooter;
+import org.example.Items.*;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Wave {
     private static PApplet a = Main.applet;
@@ -20,6 +18,7 @@ public class Wave {
     private static int blockNumber;
     private int Number = 10;
 
+    private Shield shield;
     public static Shooter shooter;
     private ArrayList<Block> waveBlocks;
     private Boss boss;
@@ -39,6 +38,11 @@ public class Wave {
     }
 
     public void collide() {
+        if (shield != null) {
+            if (shield.exist()) {
+                shield.shooterCollide();
+            }
+        }
         if (waveBlocks != null) {
             for (var b: waveBlocks) {
                 if (b.exist()){
@@ -83,6 +87,11 @@ public class Wave {
                 }
             }
             shooter.show();
+            if (shield != null) {
+                if (shield.exist()) {
+                    shield.show();
+                }
+            }
             if (waveBlocks != null) {
                 for (var b : waveBlocks) {
                     if (b.exist()) {
@@ -106,6 +115,11 @@ public class Wave {
                     if (b.exist()) {
                         b.move();
                     }
+                }
+            }
+            if (shield != null) {
+                if (shield.exist()) {
+                    shield.move();
                 }
             }
             if (waveBlocks != null) {
@@ -160,6 +174,10 @@ public class Wave {
                     highCoordinate = highXCoordinate;
                     lowYCoordinate -= (Block.blockWidth + 70);
                 }
+            }
+            Random random = new Random();
+            if (random.nextDouble(-1, 1) <= 0) {
+                shield = new Shield(a.random(0, Main.windowWidth / 2f), a.random(0, lowYCoordinate / 2f));
             }
 
         } else {
