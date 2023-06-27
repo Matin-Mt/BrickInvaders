@@ -6,6 +6,8 @@ import processing.core.PApplet;
 public class Main extends PApplet {
     public static PApplet applet;
 
+    private static int sunSpeed = 50;
+
     public static int windowWidth = 400;
     public static int windowLength = 700;
 
@@ -39,6 +41,8 @@ public class Main extends PApplet {
         }
 
         if (menu.equals("game_menu")) {
+            wallpaper(sunSpeed);
+            sunSpeed += 1;
             if (!gameStarted) {
                 gameStarted = true;
                 shooter = new Shooter(mouseX, windowLength - 50);
@@ -126,5 +130,58 @@ public class Main extends PApplet {
                 }
             }
         }
+    }
+
+    private void wallpaper(int xCoordinate) {
+        int yCoordinate = 90;
+
+        background(75, 191, 199);
+
+        // SUN
+        fill(232, 207, 21);
+        if (xCoordinate >= 30 && xCoordinate < windowWidth - 30) {
+            circle(xCoordinate, yCoordinate, 30);
+        } else if (xCoordinate >= windowWidth - 30 && xCoordinate < windowWidth + 30) {
+            circle(xCoordinate, yCoordinate, 30);
+            circle(xCoordinate - windowWidth, yCoordinate, 30);
+        } else if (xCoordinate >= windowWidth + 30) {
+            wallpaper(xCoordinate - windowWidth);
+        }
+
+        // CLOUDS
+        fill(93, 65, 201);
+
+        // CLOUD 1
+        if (xCoordinate - 70 >= 19 && xCoordinate - 70 <= windowWidth - 19) {
+            createCloud(xCoordinate - 70, yCoordinate - 10);
+        } else if (xCoordinate - 70 >= windowWidth - 19 || xCoordinate - 70 <= windowWidth + 19) {
+            createCloud(xCoordinate - 70, yCoordinate - 10);
+            createCloud(xCoordinate - 70 - windowWidth, yCoordinate - 10);
+        }
+
+        // CLOUD 2
+        if (xCoordinate >= 19 && xCoordinate + 90 <= windowWidth - 19) {
+            createCloud(xCoordinate + 90, yCoordinate + 50);
+        } else if (xCoordinate + 90 >= windowWidth - 19 || xCoordinate + 90 <= windowWidth + 19) {
+            createCloud(xCoordinate + 90, yCoordinate + 50);
+            createCloud(xCoordinate + 90 - windowWidth, yCoordinate + 50);
+        }
+
+        // CLOUD 3
+        if (xCoordinate >= 19 && xCoordinate + 170 <= windowWidth - 19) {
+            createCloud(xCoordinate + 170, yCoordinate + 15);
+        } else if (xCoordinate + 170 >= windowWidth - 19 || xCoordinate + 170 <= windowWidth + 19) {
+            createCloud(xCoordinate + 170, yCoordinate + 15);
+            createCloud(xCoordinate + 170 - windowWidth, yCoordinate + 15);
+        }
+    }
+
+    private void createCloud(int xCoordinate, int yCoordinate) {
+        circle(xCoordinate - 19, yCoordinate,20); // most left
+        circle(xCoordinate - 10, yCoordinate - 7,20); // upper left
+        circle(xCoordinate - 7, yCoordinate + 5,20); // lower left
+        circle(xCoordinate + 19, yCoordinate,20); // most right
+        circle(xCoordinate + 7, yCoordinate - 7,20); // upper right
+        circle(xCoordinate + 9, yCoordinate + 5,20); // lower right
     }
 }

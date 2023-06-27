@@ -21,7 +21,6 @@ public class Menu {
     }
 
     public static void game_menu(Wave wave) {
-        a.background(0, 255, 255);
         if (wave.waveExist()) {
             wave.collide();
             wave.healthChecking();
