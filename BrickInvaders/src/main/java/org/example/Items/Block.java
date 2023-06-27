@@ -38,9 +38,15 @@ public class Block extends Item implements Movable, Killable {
     @Override
     public void show() {
         if (exist() && yCoordinate < Main.windowLength - 50){
-            a.fill(174, 255, 0);
+            if (HP <= 0.25 * Health) {
+                a.fill(245, 5, 5);
+            } else if (HP <= 0.5 * Health) {
+                a.fill(250, 246, 2);
+            } else {
+                a.fill(3, 61, 252);
+            }
             a.rect((float) getXCoordinate(), (float) getYCoordinate(), blockLength, blockWidth);
-            a.fill(255, 0, 0);
+            a.fill(0);
             a.textAlign(a.CENTER);
             a.textSize(14);
             a.text(Double.toString(getHP()), (float) ((blockLength / 2) + xCoordinate), (float) ((blockWidth / 2) + yCoordinate));

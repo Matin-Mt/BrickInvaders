@@ -9,7 +9,7 @@ import processing.core.PApplet;
 public class Boss extends Item implements Movable, Killable {
     private final static PApplet a = Main.applet;
 
-    private static double Health = 20;
+    private static double Health = 70;
     private double HP = Health;
     private static int EXP = 15;
 
@@ -39,9 +39,15 @@ public class Boss extends Item implements Movable, Killable {
     @Override
     public void show() {
         if (exist() && (getYCoordinate() - (bossLength / 2)) < Main.windowLength) {
-            a.fill(174, 255, 0);
+            if (HP <= 0.25 * Health) {
+                a.fill(245, 5, 5);
+            } else if (HP <= 0.5 * Health) {
+                a.fill(250, 246, 2);
+            } else {
+                a.fill(3, 61, 252);
+            }
             a.arc((float) getXCoordinate(), (float) getYCoordinate(), (float) bossWidth, (float) bossLength, a.PI, 2 * a.PI);
-            a.fill(255, 0, 0);
+            a.fill(0);
             a.textAlign(a.CENTER);
             a.textSize(14);
             a.text(Double.toString(getHP()), (float) getXCoordinate(), (float) getYCoordinate() - 20);
