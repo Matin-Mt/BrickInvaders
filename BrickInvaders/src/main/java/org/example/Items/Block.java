@@ -9,7 +9,8 @@ import processing.core.PApplet;
 public class Block extends Item implements Movable, Killable {
     public static PApplet a = Main.applet;
 
-    private static double Health = 2;
+    public static final double finalHp = 2;
+    private static double Health = finalHp;
     private double HP = Health;
     private static int EXP = 1;
     public static double speedY = 1;

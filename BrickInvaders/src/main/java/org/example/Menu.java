@@ -33,7 +33,7 @@ public class Menu {
         if (Main.shooter.getHP() == 0) {
             Main.gameStarted = false;
             wave.end();
-//            database.addRecord(Wave.shooter.getScore());
+            database.addRecord(Wave.shooter.getScore());
             Main.menu = "game_over_menu";
         }
 
