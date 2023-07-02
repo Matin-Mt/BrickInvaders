@@ -9,7 +9,8 @@ import processing.core.PApplet;
 public class Boss extends Item implements Movable, Killable {
     private final static PApplet a = Main.applet;
 
-    private static double Health = 70;
+    public static final double finalHp = 2;
+    private static double Health = finalHp;
     private double HP = Health;
     private static int EXP = 15;
 

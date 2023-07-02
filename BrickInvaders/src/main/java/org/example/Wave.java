@@ -35,6 +35,7 @@ public class Wave {
     public void end() {
         shooter.setExist(false);
         setExist(false);
+        Block.setHealth(Block.finalHp);
     }
 
     public void collide() {
